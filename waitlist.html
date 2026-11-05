@@ -5,56 +5,76 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>EdubbaX · Waitlist</title>
 <meta name="description" content="EdubbaX pilotu üçün gözləmə siyahısı / Pilot waitlist / Pilot bekleme listesi">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Onest:wght@400;500;600;700;800&display=swap">
 <style>
-:root{--bg:#080b14;--card:rgba(255,255,255,.06);--line:rgba(255,255,255,.14);--tx:#f2f0ea;--mut:#aab0c4;--gold:#D4AF37;--ok:#3ecf8e;--err:#ff7b7b}
+:root{--bg:#0D0C0A;--bg-2:#12110E;--surface:#181713;--surface-2:#201E19;--line:#2C2A23;--line-2:#3A372E;--fg:#F3EFE4;--fg-2:#C9C3B3;--muted:#8E8878;--gold:#D9A92B;--gold-2:#F0C24B;--gold-ink:#1A1404;--gold-soft:rgba(217,169,43,.14);--good:#3FB27F;--bad:#E0564F;--shadow:0 1px 0 rgba(255,255,255,.03) inset,0 18px 40px -24px rgba(0,0,0,.7);--f-display:"Cormorant Garamond","Noto Serif",Georgia,serif;--f-body:"Onest",system-ui,-apple-system,"Segoe UI",sans-serif;--r:14px;color-scheme:dark}
+@media(prefers-color-scheme:light){:root{--bg:#F6F5F1;--bg-2:#EEECE5;--surface:#FFFFFF;--surface-2:#F7F5EF;--line:#E3DFD3;--line-2:#D3CEBF;--fg:#17150F;--fg-2:#3E3A30;--muted:#716B5B;--gold:#A97C08;--gold-2:#C8960F;--gold-ink:#FFFDF6;--gold-soft:rgba(169,124,8,.11);--good:#1E8A5A;--bad:#C23B34;--shadow:0 1px 2px rgba(23,21,15,.05),0 12px 32px -20px rgba(23,21,15,.25);color-scheme:light}}
 *{box-sizing:border-box}
-html{background:#080b14}
-html,body{margin:0}
-body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:radial-gradient(circle at 25% 0,#16213a,#080b14 62%) no-repeat;color:var(--tx);min-height:100vh;line-height:1.5}
-.wrap{max-width:620px;margin:0 auto;padding:20px 16px 60px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:26px}
-.logo{font-family:Georgia,"DejaVu Serif",serif;font-size:30px;color:var(--gold);letter-spacing:-.5px}
-.logo b{font-family:Inter,system-ui,sans-serif;color:#fff;font-weight:800}
-.lang{display:flex;gap:6px}
-.lang button{background:var(--card);border:1px solid var(--line);color:var(--mut);border-radius:20px;padding:6px 14px;font-weight:700;font-size:13px;cursor:pointer}
-.lang button[aria-pressed=true]{background:var(--gold);color:#1a1400;border-color:var(--gold)}
-h1{font-size:clamp(28px,6.5vw,40px);line-height:1.12;margin:0 0 12px;letter-spacing:-.8px}
+html,body{margin:0;min-height:100%}
+body{font:400 15px/1.55 var(--f-body);background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit}
+.bar{border-bottom:1px solid var(--line);background:var(--bg)}
+.bar-in{max-width:1080px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.logo{font-family:var(--f-display);font-size:30px;font-weight:700;color:var(--gold);text-decoration:none;letter-spacing:-.5px;margin-right:auto}
+.logo b{font-family:var(--f-body);color:var(--fg);font-weight:800}
+.nav-a{text-decoration:none;color:var(--fg-2);padding:8px 12px;border-radius:999px;font-weight:500;font-size:.93rem}
+.nav-a:hover{color:var(--fg);background:var(--surface)}
+.nav-a.on{color:var(--fg);background:var(--surface-2)}
+.lang{display:flex;gap:6px;margin-left:6px}
+.lang button{background:transparent;border:1px solid var(--line-2);color:var(--fg-2);border-radius:999px;padding:6px 13px;font-weight:600;font-size:13px;cursor:pointer}
+.lang button:hover{border-color:var(--gold)}
+.lang button[aria-pressed=true]{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.wrap{width:100%;max-width:640px;margin:0 auto;padding:40px 16px 56px;flex:1}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(34px,7vw,50px);line-height:1.06;margin:0 0 14px;letter-spacing:-.01em;text-wrap:balance}
 h1 span{color:var(--gold)}
-.lead{color:var(--mut);margin:0 0 26px;font-size:17px}
-form{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 18px}
-label{display:block;font-weight:700;font-size:14px;margin:16px 0 6px}
-label small{font-weight:500;color:var(--mut)}
-input,select,textarea{width:100%;font:inherit;color:var(--tx);background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:16px}
+.lead{color:var(--fg-2);margin:0 0 28px;font-size:17px}
+form{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px 20px;box-shadow:var(--shadow)}
+label{display:block;font-weight:600;font-size:14px;margin:16px 0 6px}
+form>label:first-child{margin-top:0}
+label small{font-weight:500;color:var(--muted)}
+input,select,textarea{width:100%;font:inherit;color:var(--fg);background:var(--bg-2);border:1px solid var(--line-2);border-radius:9px;padding:12px 14px;font-size:16px}
 select option{color:#111}
 textarea{min-height:96px;resize:vertical}
-input:focus,select:focus,textarea:focus{outline:2px solid var(--gold);outline-offset:1px}
+input::placeholder,textarea::placeholder{color:var(--muted)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--gold);outline-offset:2px;border-color:var(--gold)}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:520px){.row{grid-template-columns:1fr}}
-.check{display:flex;gap:12px;align-items:flex-start;margin-top:16px;font-size:14.5px;color:var(--tx)}
+.check{display:flex;gap:12px;align-items:flex-start;margin-top:16px;font-size:14.5px}
 .check input{width:22px;height:22px;margin-top:2px;flex:none;accent-color:var(--gold)}
-.pilot{background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.35);border-radius:14px;padding:12px 14px}
-button.go{width:100%;margin-top:22px;border:0;border-radius:999px;background:var(--gold);color:#1a1400;font-weight:800;font-size:18px;padding:16px;cursor:pointer}
+.pilot{background:var(--gold-soft);border:1px solid var(--gold);border-radius:var(--r);padding:12px 14px}
+button.go{display:flex;align-items:center;justify-content:center;width:100%;min-height:50px;margin-top:22px;border:0;border-radius:999px;background:var(--gold);color:var(--gold-ink);font-weight:700;font-size:1rem;cursor:pointer;transition:background .15s ease,transform .12s ease}
+button.go:hover{background:var(--gold-2)}
+button.go:active{transform:translateY(1px)}
 button.go:disabled{opacity:.6;cursor:wait}
 .msg{margin-top:14px;font-size:15px;min-height:22px}
-.msg.err{color:var(--err)}
+.msg.err{color:var(--bad)}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.done{text-align:center;padding:44px 22px;background:var(--card);border:1px solid var(--line);border-radius:22px}
-.done .tick{width:64px;height:64px;border-radius:50%;background:var(--ok);color:#06281a;font-size:36px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
-.done h2{margin:0 0 8px;font-size:26px}.done p{color:var(--mut);margin:0}
-.foot{margin-top:22px;font-size:13px;color:var(--mut);text-align:center}
+.done{text-align:center;padding:48px 22px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.done .tick{width:64px;height:64px;border-radius:50%;background:var(--good);color:#fff;font-size:34px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.done h2{font-family:var(--f-display);font-weight:600;margin:0 0 8px;font-size:32px}
+.done p{color:var(--fg-2);margin:0 0 20px}
+.btn-home{display:inline-flex;align-items:center;min-height:42px;padding:0 20px;border-radius:999px;border:1px solid var(--line-2);text-decoration:none;font-weight:600}
+.btn-home:hover{border-color:var(--gold)}
+.foot{margin-top:22px;font-size:13px;color:var(--muted);text-align:center}
 .foot a{color:var(--gold)}
 .hidden{display:none!important}
+.sign{border-top:1px solid var(--line);padding:18px 16px 22px;text-align:center;color:var(--fg-2);font-size:14px}
+.sign b{font-family:var(--f-display);font-size:20px;font-weight:600;color:var(--fg);letter-spacing:.01em}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="top">
-    <div class="logo">edubba<b>X</b></div>
-    <div class="lang" role="group" aria-label="Language">
-      <button type="button" data-l="az">AZ</button><button type="button" data-l="tr">TR</button><button type="button" data-l="en">EN</button>
-    </div>
+<header class="bar"><div class="bar-in">
+  <a class="logo" href="index.html" id="logo-link">edubba<b>X</b></a>
+  <a class="nav-a" href="index.html" id="n-home"></a>
+  <a class="nav-a on" href="waitlist.html" id="n-wl"></a>
+  <a class="nav-a" href="investors.html" id="n-inv"></a>
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" data-l="az">AZ</button><button type="button" data-l="tr">TR</button><button type="button" data-l="en">EN</button>
   </div>
-
+</div></header>
+<div class="wrap">
   <div id="intro">
     <h1 id="t-h1"></h1>
     <p class="lead" id="t-lead"></p>
@@ -98,16 +118,18 @@ button.go:disabled{opacity:.6;cursor:wait}
     <div class="tick">✓</div>
     <h2 id="t-done-h"></h2>
     <p id="t-done-p"></p>
+    <a class="btn-home" id="t-home" href="index.html"></a>
   </div>
 
   <div class="foot" id="foot"></div>
 </div>
+<footer class="sign"><b>Ömər Heydər</b></footer>
 
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
 const T={
-az:{h1:'EdubbaX <span>pilotu</span> üçün gözləmə siyahısı',lead:'Dərs bitməmiş şagirdlərin başa düşmədiyi yeri görmək istəyirsiniz? Pilot üçün müəllimlər və mərkəzlər axtarırıq. Qeydiyyatdan keçin, pilot başlayanda ilk sizə yazaq.',
+az:{nHome:'Ana səhifə',nWl:'Gözləmə siyahısı',nInv:'İnvestorlar',back:'Ana səhifəyə qayıt',h1:'EdubbaX <span>pilotu</span> üçün gözləmə siyahısı',lead:'Dərs bitməmiş şagirdlərin başa düşmədiyi yeri görmək istəyirsiniz? Pilot üçün müəllimlər və mərkəzlər axtarırıq. Qeydiyyatdan keçin, pilot başlayanda ilk sizə yazaq.',
  name:'Ad, soyad',email:'E-poçt',role:'Siz kimsiniz?',roles:{teacher:'Müəllim / repetitor',center:'Kurs və ya təhsil mərkəzi',parent:'Valideyn',other:'Digər'},
  org:'Məktəb / mərkəz <small>(istəyə bağlı)</small>',subject:'Fənn <small>(istəyə bağlı)</small>',students:'Təxmini şagird sayı <small>(istəyə bağlı)</small>',platform:'Dərsi hazırda harada keçirsiniz? <small>(Zoom, Meet, sinifdə…)</small>',
  problem:'Dərs zamanı ən böyük problem nədir? <small>(istəyə bağlı)</small>',pilot:'Pilotda 2–3 test dərsi keçməyə və qısa rəy verməyə hazıram.',
@@ -115,7 +137,7 @@ az:{h1:'EdubbaX <span>pilotu</span> üçün gözləmə siyahısı',lead:'Dərs b
  go:'Gözləmə siyahısına qoşul',sending:'Göndərilir…',doneH:'Təşəkkür edirik!',doneP:'Qeydiyyatınız alındı. Pilot başlayanda sizinlə e-poçt vasitəsilə əlaqə saxlayacağıq.',
  eName:'Adınızı yazın.',eEmail:'E-poçt ünvanını düzgün yazın.',eConsent:'Davam etmək üçün razılıq vermək lazımdır.',eInvalid:'Məlumatlarda səhv var. Yoxlayıb yenidən cəhd edin.',eBusy:'Hazırda çox sorğu var. Bir az sonra yenidən cəhd edin.',eNet:'Göndərmək alınmadı. İnternetinizi yoxlayıb yenidən cəhd edin.',eCfg:'Bu səhifə hələ bazaya qoşulmayıb (config.js boşdur).',
  foot:'Prototip mərhələsi · <a href="mailto:edubbax@gmail.com">edubbax@gmail.com</a>'},
-tr:{h1:'EdubbaX <span>pilotu</span> için bekleme listesi',lead:'Ders bitmeden öğrencilerin anlamadığı yeri görmek ister misiniz? Pilot için öğretmen ve merkezler arıyoruz. Kaydolun, pilot başlayınca ilk size yazalım.',
+tr:{nHome:'Ana sayfa',nWl:'Bekleme listesi',nInv:'Yatırımcılar',back:'Ana sayfaya dön',h1:'EdubbaX <span>pilotu</span> için bekleme listesi',lead:'Ders bitmeden öğrencilerin anlamadığı yeri görmek ister misiniz? Pilot için öğretmen ve merkezler arıyoruz. Kaydolun, pilot başlayınca ilk size yazalım.',
  name:'Ad, soyad',email:'E-posta',role:'Siz kimsiniz?',roles:{teacher:'Öğretmen / özel ders hocası',center:'Kurs veya eğitim merkezi',parent:'Veli',other:'Diğer'},
  org:'Okul / merkez <small>(isteğe bağlı)</small>',subject:'Ders <small>(isteğe bağlı)</small>',students:'Yaklaşık öğrenci sayısı <small>(isteğe bağlı)</small>',platform:'Dersi şu an nerede yapıyorsunuz? <small>(Zoom, Meet, sınıfta…)</small>',
  problem:'Ders sırasında en büyük sorununuz nedir? <small>(isteğe bağlı)</small>',pilot:'Pilotta 2–3 deneme dersi yapmaya ve kısa geri bildirim vermeye hazırım.',
@@ -123,7 +145,7 @@ tr:{h1:'EdubbaX <span>pilotu</span> için bekleme listesi',lead:'Ders bitmeden �
  go:'Bekleme listesine katıl',sending:'Gönderiliyor…',doneH:'Teşekkürler!',doneP:'Kaydınız alındı. Pilot başlayınca sizinle e-posta yoluyla iletişime geçeceğiz.',
  eName:'Adınızı yazın.',eEmail:'E-posta adresini doğru yazın.',eConsent:'Devam etmek için onay vermeniz gerekir.',eInvalid:'Bilgilerde hata var. Kontrol edip tekrar deneyin.',eBusy:'Şu an çok fazla istek var. Biraz sonra tekrar deneyin.',eNet:'Gönderilemedi. İnternetinizi kontrol edip tekrar deneyin.',eCfg:'Bu sayfa henüz veritabanına bağlı değil (config.js boş).',
  foot:'Prototip aşaması · <a href="mailto:edubbax@gmail.com">edubbax@gmail.com</a>'},
-en:{h1:'EdubbaX <span>pilot</span> waitlist',lead:'Want to see what students did not understand before the lesson ends? We are looking for teachers and centers for the pilot. Sign up and we will write to you first when it starts.',
+en:{nHome:'Home',nWl:'Waitlist',nInv:'Investors',back:'Back to the website',h1:'EdubbaX <span>pilot</span> waitlist',lead:'Want to see what students did not understand before the lesson ends? We are looking for teachers and centers for the pilot. Sign up and we will write to you first when it starts.',
  name:'Full name',email:'E-mail',role:'Who are you?',roles:{teacher:'Teacher / tutor',center:'Course or education center',parent:'Parent',other:'Other'},
  org:'School / center <small>(optional)</small>',subject:'Subject <small>(optional)</small>',students:'Approx. number of students <small>(optional)</small>',platform:'Where do you teach now? <small>(Zoom, Meet, in class…)</small>',
  problem:'What is your biggest problem during lessons? <small>(optional)</small>',pilot:'I can run 2–3 test lessons in the pilot and give short feedback.',
@@ -145,6 +167,7 @@ function apply(){
   const sel=$('role'),cur=sel.value;sel.innerHTML='';
   Object.keys(s.roles).forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=s.roles[k];sel.appendChild(o)});
   if(cur)sel.value=cur;
+  $('n-home').textContent=s.nHome;$('n-wl').textContent=s.nWl;$('n-inv').textContent=s.nInv;$('t-home').textContent=s.back;['logo-link','n-home','n-wl','n-inv','t-home'].forEach(id=>{const a=$(id),h=a.getAttribute('href').split('?')[0];a.setAttribute('href',h+'?lang='+lang)});
   $('go').textContent=s.go;$('t-done-h').textContent=s.doneH;$('t-done-p').textContent=s.doneP;$('foot').innerHTML=s.foot;$('msg').textContent='';
   document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===lang));
 }
