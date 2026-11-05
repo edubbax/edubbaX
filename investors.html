@@ -34,7 +34,17 @@ h2{font-size:clamp(26px,4vw,34px);line-height:1.15;margin-bottom:18px}
 .role{color:var(--gold);font-weight:700;font-size:17px;margin:10px 0 18px}
 blockquote{margin:0 0 18px;padding-left:16px;border-left:3px solid var(--gold);font-family:Georgia,"DejaVu Serif",serif;font-size:21px;line-height:1.35}
 .bio p{color:var(--mut);margin:0 0 10px;max-width:62ch}
-.edu{font-size:14px;color:var(--dim)!important}
+.edub{margin:6px 0 4px}
+.deg{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.deg .lvl{flex:none;min-width:92px;color:var(--gold);font-weight:700;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;padding-top:3px}
+.deg b{display:block;font-size:18px;font-family:Georgia,"DejaVu Serif",serif}
+.deg span:not(.lvl){display:block;color:var(--mut);font-size:15px;margin-top:2px}
+.logos{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.logos figure{margin:0;text-align:center}
+.logos .lg{background:#fff;border-radius:14px;height:92px;display:grid;place-items:center;padding:10px}
+.logos .lg.nolg{display:none}
+.logos img{max-width:100%;max-height:72px;object-fit:contain}
+.logos figcaption{font-size:12.5px;color:var(--mut);margin-top:8px;line-height:1.35}
 .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
 .btn{display:inline-flex;align-items:center;gap:9px;border-radius:999px;padding:12px 20px;font-weight:700;font-size:15px;text-decoration:none;border:1px solid var(--line);background:var(--card);color:var(--tx);cursor:pointer}
 .btn svg{width:18px;height:18px;flex:none}
@@ -82,11 +92,15 @@ section{margin-bottom:56px}
       <p class="eyebrow" id="t-eyebrow"></p>
       <h1>Omar Heydar</h1>
       <p class="role" id="t-role"></p>
-      <blockquote id="t-quote"></blockquote>
-      <div class="bio">
-        <p id="t-bio1"></p>
-        <p id="t-bio2"></p>
-        <p class="edu" id="t-edu"></p>
+      <div class="edub">
+        <p class="eyebrow" id="t-edu-h" style="margin-bottom:12px"></p>
+        <div class="deg"><span class="lvl" id="t-ms"></span><div><b>MBA, General Management</b><span id="t-ms-u"></span></div></div>
+        <div class="deg"><span class="lvl" id="t-bs"></span><div><b id="t-bs-d"></b><span id="t-bs-u"></span></div></div>
+        <div class="logos">
+          <figure><div class="lg"><img src="assets/logo-bdu.png" alt="Bakı Dövlət Universiteti" onerror="this.parentNode.classList.add('nolg');this.remove()"></div><figcaption id="t-l1"></figcaption></figure>
+          <figure><div class="lg"><img src="assets/logo-sabah.png" alt="SABAH qrupları" onerror="this.parentNode.classList.add('nolg');this.remove()"></div><figcaption id="t-l2"></figcaption></figure>
+          <figure><div class="lg"><img src="assets/logo-aztu.png" alt="Azərbaycan Texniki Universiteti" onerror="this.parentNode.classList.add('nolg');this.remove()"></div><figcaption id="t-l3"></figcaption></figure>
+        </div>
       </div>
       <div class="cta">
         <a class="btn gold" href="assets/EdubbaX_Pitch_Deck.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span id="t-open"></span></a>
@@ -149,7 +163,7 @@ section{margin-bottom:56px}
 </div>
 <script>
 const T={
-en:{back:'← Back to the product',eyebrow:'For investors',role:'Founder & CEO, EdubbaX',
+en:{edu_h:'Education',ms:'Master’s',bs:'Bachelor’s',msU:'Azerbaijan Technical University',bsD:'SABAH Groups',bsU:'Baku State University',l1:'Baku State University',l2:'SABAH Groups',l3:'Azerbaijan Technical University',back:'← Back to the product',eyebrow:'For investors',role:'Founder & CEO, EdubbaX',
  quote:'A teacher should know who didn’t understand during the lesson, not after the exam.',
  bio1:'Omar Heydar is the founder and CEO of EdubbaX. He is a teacher and trainer who teaches his own students online over Zoom and Google Meet. The idea came from a gap he saw in his own lessons: there was no way to know who understood and who was silently falling behind.',
  bio2:'Today he is building EdubbaX, an AI layer that measures understanding during the lesson, flags the gap and helps the teacher close it in the same lesson. It starts with independent tutors and tutoring centres in Azerbaijan, then Turkey.',
@@ -161,7 +175,7 @@ en:{back:'← Back to the product',eyebrow:'For investors',role:'Founder & CEO, 
  pdf:'Open PDF',pptx:'Download PowerPoint',deckNote:'Figures are targets and proposals unless stated otherwise; demo mode uses a simulated class.',
  contactEb:'Contact',contactH:'Let’s talk.',mail1:'EdubbaX email',mail2:'Personal email',phone:'Phone',
  socialEb:'Follow',socialH:'EdubbaX and Omar on social media.',all:'All links',fDemo:'Product demo',fWait:'Teacher waitlist'},
-az:{back:'← Məhsula qayıt',eyebrow:'İnvestorlar üçün',role:'EdubbaX-ın qurucusu və CEO-su',
+az:{edu_h:'Təhsil',ms:'Magistratura',bs:'Bakalavr',msU:'Azərbaycan Texniki Universiteti',bsD:'SABAH qrupları',bsU:'Bakı Dövlət Universiteti',l1:'Bakı Dövlət Universiteti',l2:'SABAH qrupları',l3:'Azərbaycan Texniki Universiteti',back:'← Məhsula qayıt',eyebrow:'İnvestorlar üçün',role:'EdubbaX-ın qurucusu və CEO-su',
  quote:'Müəllim kimin başa düşmədiyini imtahandan sonra yox, dərsin içində bilməlidir.',
  bio1:'Omar Heydar EdubbaX-ın qurucusu və CEO-sudur. O, müəllim və təlimçidir, öz şagirdlərinə Zoom və Google Meet üzərindən online dərs keçir. İdeya onun öz dərslərində gördüyü boşluqdan yaranıb: kimin başa düşdüyünü, kimin isə susaraq geri qaldığını bilmək mümkün deyildi.',
  bio2:'Bu gün o, EdubbaX-ı qurur: dərsin içində anlamanı ölçən, boşluğu göstərən və müəllimə onu elə həmin dərsdə bağlamağa kömək edən AI. Başlanğıc Azərbaycanda müstəqil repetitorlar və kurs mərkəzləridir, sonra Türkiyə.',
@@ -173,7 +187,7 @@ az:{back:'← Məhsula qayıt',eyebrow:'İnvestorlar üçün',role:'EdubbaX-ın 
  pdf:'PDF-i aç',pptx:'PowerPoint-i yüklə',deckNote:'Başqa cür qeyd olunmayıbsa, rəqəmlər hədəf və təklifdir; demo rejimində sinif simulyasiya olunur.',
  contactEb:'Əlaqə',contactH:'Danışaq.',mail1:'EdubbaX e-poçtu',mail2:'Şəxsi e-poçt',phone:'Telefon',
  socialEb:'İzləyin',socialH:'EdubbaX və Omar sosial şəbəkələrdə.',all:'Bütün linklər',fDemo:'Məhsulun demosu',fWait:'Müəllim gözləmə siyahısı'},
-tr:{back:'← Ürüne dön',eyebrow:'Yatırımcılar için',role:'EdubbaX Kurucusu ve CEO’su',
+tr:{edu_h:'Eğitim',ms:'Yüksek lisans',bs:'Lisans',msU:'Azerbaycan Teknik Üniversitesi',bsD:'SABAH Grupları',bsU:'Bakü Devlet Üniversitesi',l1:'Bakü Devlet Üniversitesi',l2:'SABAH Grupları',l3:'Azerbaycan Teknik Üniversitesi',back:'← Ürüne dön',eyebrow:'Yatırımcılar için',role:'EdubbaX Kurucusu ve CEO’su',
  quote:'Öğretmen kimin anlamadığını sınavdan sonra değil, ders sırasında bilmelidir.',
  bio1:'Omar Heydar, EdubbaX’in kurucusu ve CEO’sudur. Öğretmen ve eğitmendir; kendi öğrencilerine Zoom ve Google Meet üzerinden çevrim içi ders verir. Fikir, kendi derslerinde gördüğü bir boşluktan doğdu: kimin anladığını, kimin sessizce geride kaldığını bilmenin yolu yoktu.',
  bio2:'Bugün EdubbaX’i inşa ediyor: ders sırasında anlamayı ölçen, boşluğu gösteren ve öğretmenin onu aynı derste kapatmasına yardım eden bir yapay zekâ. Başlangıç Azerbaycan’daki bağımsız özel öğretmenler ve kurs merkezleri, ardından Türkiye.',
@@ -185,7 +199,7 @@ tr:{back:'← Ürüne dön',eyebrow:'Yatırımcılar için',role:'EdubbaX Kurucu
  pdf:'PDF’i aç',pptx:'PowerPoint’i indir',deckNote:'Aksi belirtilmedikçe rakamlar hedef ve öneridir; demo modunda sınıf simüle edilir.',
  contactEb:'İletişim',contactH:'Konuşalım.',mail1:'EdubbaX e-postası',mail2:'Kişisel e-posta',phone:'Telefon',
  socialEb:'Takip edin',socialH:'Sosyal medyada EdubbaX ve Omar.',all:'Tüm bağlantılar',fDemo:'Ürün demosu',fWait:'Öğretmen bekleme listesi'}};
-const map={back:'t-back',eyebrow:'t-eyebrow',role:'t-role',quote:'t-quote',bio1:'t-bio1',bio2:'t-bio2',edu:'t-edu',open:'t-open',mailbtn:'t-mailbtn',f1:'t-f1',f2:'t-f2',f3:'t-f3',f4:'t-f4',deckEb:'t-deck-eb',deckH:'t-deck-h',deckP:'t-deck-p',pdf:'t-pdf',pptx:'t-pptx',deckNote:'t-deck-note',contactEb:'t-contact-eb',contactH:'t-contact-h',mail1:'t-mail1',mail2:'t-mail2',phone:'t-phone',socialEb:'t-social-eb',socialH:'t-social-h',all:'t-all',fDemo:'t-f-demo',fWait:'t-f-wait'};
+const map={edu_h:'t-edu-h',ms:'t-ms',bs:'t-bs',msU:'t-ms-u',bsD:'t-bs-d',bsU:'t-bs-u',l1:'t-l1',l2:'t-l2',l3:'t-l3',back:'t-back',eyebrow:'t-eyebrow',role:'t-role',open:'t-open',mailbtn:'t-mailbtn',f1:'t-f1',f2:'t-f2',f3:'t-f3',f4:'t-f4',deckEb:'t-deck-eb',deckH:'t-deck-h',deckP:'t-deck-p',pdf:'t-pdf',pptx:'t-pptx',deckNote:'t-deck-note',contactEb:'t-contact-eb',contactH:'t-contact-h',mail1:'t-mail1',mail2:'t-mail2',phone:'t-phone',socialEb:'t-social-eb',socialH:'t-social-h',all:'t-all',fDemo:'t-f-demo',fWait:'t-f-wait'};
 function setLang(l){const s=T[l]||T.en;document.documentElement.lang=l;for(const k in map){const el=document.getElementById(map[k]);if(el)el.textContent=s[k]}
  document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===l));
  const w=document.getElementById('t-f-wait');if(w)w.href='waitlist.html?lang='+l;
