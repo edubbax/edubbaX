@@ -2963,7 +2963,7 @@ function shell() {
     else body = teacherLayout();
   } else {
     body = ({
-      home: homeView, about: aboutView, login: () => loginView(false), signup: signupView,
+      home: homeView, about: homeView, login: () => loginView(false), signup: signupView,
       join: joinView, student: studentPortalView, slive: studentLiveView, sexam: studentExamView, report: reportView, class: classReportView,
     }[r] || homeView)();
   }
@@ -2979,7 +2979,6 @@ function topbar() {
     <a href="#home" class="brand" aria-label="EdubbaX">${logo()}</a>
     <nav class="nav ${S.ui.menu ? "open" : ""}" aria-label="Main">
       ${link("home", tx("nav.home"))}
-      ${link("about", tx("nav.about"))}
       ${link("join", tx("nav.join"))}
       ${S.teacher ? `<a href="#dash" class="nav-a ${TEACHER_ROUTES.includes(r) ? "on" : ""}">${tx("nav.dashboard")}</a>` : link("login", tx("nav.teacherLogin"))}
     </nav>
@@ -2998,7 +2997,7 @@ function footer() {
     <div class="foot-brand">${logo("sm")}<p>${tx("footer.tag")}</p></div>
     <div class="foot-cols">
       <div><h4>${tx("footer.product")}</h4><a href="#join">${tx("nav.join")}</a><a href="#signup">${tx("auth.signupTitle")}</a><a href="#login">${tx("nav.teacherLogin")}</a></div>
-      <div><h4>${tx("footer.company")}</h4><a href="#about">${tx("nav.about")}</a><a href="https://linktr.ee/edubbax" target="_blank" rel="noopener">linktr.ee/edubbax</a><span class="sel">edubbax@gmail.com</span></div>
+      <div><h4>${tx("footer.company")}</h4><a href="https://linktr.ee/edubbax" target="_blank" rel="noopener">linktr.ee/edubbax</a><span class="sel">edubbax@gmail.com</span></div>
     </div>
   </div><div class="wrap foot-base"><span>© 2026 EdubbaX</span><span class="mode-chip ${api.mode}">${api.mode === "local" ? tx("mode.local") : tx("mode.cloud")}</span></div></footer>`;
 }
