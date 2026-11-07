@@ -72,6 +72,34 @@ section{margin-bottom:56px}
 .foot a{color:var(--gold)}
 @media(max-width:860px){.hero{grid-template-columns:1fr;gap:18px}.photo{max-width:85px}.deck{grid-template-columns:1fr}.facts{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.grid2{grid-template-columns:1fr}.fact b{font-size:24px}}
+
+.live-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:16px}
+.lcard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;position:relative}
+.lbadge{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#3FB27F;margin-bottom:14px}
+.lbadge i{width:9px;height:9px;border-radius:50%;background:#3FB27F;box-shadow:0 0 0 0 rgba(63,178,127,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(63,178,127,0)}100%{box-shadow:0 0 0 0 rgba(63,178,127,0)}}
+@media(prefers-reduced-motion:reduce){.lbadge i{animation:none}}
+.lcard .big{font-family:Georgia,"DejaVu Serif",serif;font-size:60px;font-weight:700;line-height:1;color:var(--gold)}
+.lcard .lbl{color:var(--tx);margin-top:8px;font-size:16px}
+.lcard .sub{color:var(--mut);margin-top:14px;font-size:14.5px}
+.lcard .sub b{color:var(--tx)}
+.lcard .note{color:var(--mut);font-size:13px;margin:16px 0 0;line-height:1.5}
+.donut-row{display:flex;align-items:center;gap:26px;margin-top:20px;flex-wrap:wrap}
+.donut{width:150px;height:150px;flex:none}
+.donut circle{fill:none;stroke-width:14;transition:stroke-dasharray .8s ease,stroke-dashoffset .8s ease}
+.donut .bg{stroke:var(--line)}
+.donut text{fill:var(--tx);font-family:Georgia,"DejaVu Serif",serif;font-weight:700;font-size:25px;text-anchor:middle}
+.legend{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.legend li{display:flex;align-items:center;gap:10px;color:var(--mut);font-size:15px}
+.legend li b{color:var(--tx);font-size:20px;min-width:34px}
+.legend i{width:12px;height:12px;border-radius:4px;flex:none}
+.legend .y{background:#3FB27F}.legend .n{background:#E0564F}
+.cats{display:grid;gap:12px;margin-top:22px}
+.cat{display:grid;grid-template-columns:130px 1fr 54px;align-items:center;gap:12px;font-size:14px;color:var(--mut)}
+.cat .bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.cat .bar i{display:block;height:100%;background:var(--gold);border-radius:99px;transition:width .8s ease}
+.cat b{color:var(--tx);text-align:right}
+@media(max-width:760px){.live-grid{grid-template-columns:1fr}.cat{grid-template-columns:100px 1fr 46px}}
 </style>
 </head>
 <body>
@@ -111,10 +139,42 @@ section{margin-bottom:56px}
 
   <div class="facts">
     <div class="fact"><b>$100,000</b><span id="t-f1"></span></div>
-    <div class="fact"><b>150+</b><span id="t-f2"></span></div>
+    <div class="fact"><b id="live-wl">…</b><span id="t-f2"></span></div>
     <div class="fact"><b>4</b><span id="t-f3"></span></div>
     <div class="fact"><b>AZ → TR</b><span id="t-f4"></span></div>
   </div>
+
+  <section id="live">
+    <p class="eyebrow" id="t-live-eb"></p>
+    <h2 id="t-live-h"></h2>
+    <div class="live-grid">
+      <div class="lcard">
+        <div class="lbadge"><i></i><span id="t-live-badge"></span></div>
+        <div class="big" id="lv-wl">…</div>
+        <div class="lbl" id="t-wl-l"></div>
+        <div class="sub"><b id="lv-wl-pilot">…</b> <span id="t-wl-pilot"></span></div>
+        <p class="note" id="t-wl-note"></p>
+      </div>
+      <div class="lcard">
+        <div class="big" id="lv-sv">…</div>
+        <div class="lbl" id="t-sv-l"></div>
+        <div class="donut-row">
+          <svg class="donut" viewBox="0 0 120 120" role="img" id="lv-donut">
+            <circle class="bg" cx="60" cy="60" r="48"/>
+            <circle id="lv-arc-no" cx="60" cy="60" r="48" stroke="#E0564F" stroke-dasharray="0 301.6" transform="rotate(-90 60 60)"/>
+            <circle id="lv-arc-yes" cx="60" cy="60" r="48" stroke="#3FB27F" stroke-dasharray="0 301.6" transform="rotate(-90 60 60)"/>
+            <text x="60" y="68" id="lv-pct">…</text>
+          </svg>
+          <ul class="legend">
+            <li><i class="y"></i><b id="lv-yes">…</b><span id="t-yes"></span></li>
+            <li><i class="n"></i><b id="lv-no">…</b><span id="t-no"></span></li>
+          </ul>
+        </div>
+        <div class="cats" id="lv-cats"></div>
+        <p class="note" id="t-sv-note"></p>
+      </div>
+    </div>
+  </section>
 
   <section>
     <p class="eyebrow" id="t-deck-eb"></p>
@@ -161,9 +221,10 @@ section{margin-bottom:56px}
     <span><a href="./" id="t-f-demo"></a> · <a href="waitlist.html" id="t-f-wait"></a></span>
   </footer>
 </div>
+<script src="config.js"></script>
 <script>
 const T={
-en:{edu_h:'Education',ms:'Master’s',bs:'Bachelor’s',msU:'Azerbaijan Technical University',bsD:'SABAH Groups',bsU:'Baku State University',l1:'Baku State University',l2:'SABAH Groups',l3:'Azerbaijan Technical University',back:'← Back to the product',eyebrow:'For investors',role:'Founder & CEO, EdubbaX',
+en:{vEb:'Live validation',vH:'Real demand, updated automatically.',vBadge:'Live',wlL:'people signed up to the waitlist form',wlP:'of them are ready for the pilot',wlN:'Online signups with consent. Updates the moment someone joins.',svL:'people took part in the survey',yes:'want to try EdubbaX in the pilot',no:'not now',svN:'In-person survey answers collected by hand and counted separately from the waitlist. Teachers, parents, students and pupils.',cT:'Teachers',cP:'Parents',cS:'Students & pupils',edu_h:'Education',ms:'Master’s',bs:'Bachelor’s',msU:'Azerbaijan Technical University',bsD:'SABAH Groups',bsU:'Baku State University',l1:'Baku State University',l2:'SABAH Groups',l3:'Azerbaijan Technical University',back:'← Back to the product',eyebrow:'For investors',role:'Founder & CEO, EdubbaX',
  quote:'A teacher should know who didn’t understand during the lesson, not after the exam.',
  bio1:'Omar Heydar is the founder and CEO of EdubbaX. He is a teacher and trainer who teaches his own students online over Zoom and Google Meet. The idea came from a gap he saw in his own lessons: there was no way to know who understood and who was silently falling behind.',
  bio2:'Today he is building EdubbaX, an AI layer that measures understanding during the lesson, flags the gap and helps the teacher close it in the same lesson. It starts with independent tutors and tutoring centres in Azerbaijan, then Turkey.',
@@ -175,7 +236,7 @@ en:{edu_h:'Education',ms:'Master’s',bs:'Bachelor’s',msU:'Azerbaijan Technica
  pdf:'Open PDF',pptx:'Download PowerPoint',deckNote:'Figures are targets and proposals unless stated otherwise; demo mode uses a simulated class.',
  contactEb:'Contact',contactH:'Let’s talk.',mail1:'EdubbaX email',mail2:'Personal email',phone:'Phone',
  socialEb:'Follow',socialH:'EdubbaX and Omar on social media.',all:'All links',fDemo:'Product demo',fWait:'Teacher waitlist'},
-az:{edu_h:'Təhsil',ms:'Magistratura',bs:'Bakalavr',msU:'Azərbaycan Texniki Universiteti',bsD:'SABAH qrupları',bsU:'Bakı Dövlət Universiteti',l1:'Bakı Dövlət Universiteti',l2:'SABAH qrupları',l3:'Azərbaycan Texniki Universiteti',back:'← Məhsula qayıt',eyebrow:'İnvestorlar üçün',role:'EdubbaX-ın qurucusu və CEO-su',
+az:{vEb:'Canlı yoxlama',vH:'Real tələbat, avtomatik yenilənir.',vBadge:'Canlı',wlL:'nəfər gözləmə siyahısı formasını doldurub',wlP:'nəfəri pilota hazırdır',wlN:'Razılıqla onlayn qeydiyyat. Kimsə qoşulan kimi yenilənir.',svL:'nəfər sorğuda iştirak edib',yes:'EdubbaX-ı pilotda sınamaq istəyir',no:'hələlik istəmir',svN:'Əyani toplanmış sorğu cavabları; gözləmə siyahısından ayrı sayılır. Müəllim, valideyn və şagird/tələbə.',cT:'Müəllimlər',cP:'Valideynlər',cS:'Şagird və tələbələr',edu_h:'Təhsil',ms:'Magistratura',bs:'Bakalavr',msU:'Azərbaycan Texniki Universiteti',bsD:'SABAH qrupları',bsU:'Bakı Dövlət Universiteti',l1:'Bakı Dövlət Universiteti',l2:'SABAH qrupları',l3:'Azərbaycan Texniki Universiteti',back:'← Məhsula qayıt',eyebrow:'İnvestorlar üçün',role:'EdubbaX-ın qurucusu və CEO-su',
  quote:'Müəllim kimin başa düşmədiyini imtahandan sonra yox, dərsin içində bilməlidir.',
  bio1:'Omar Heydar EdubbaX-ın qurucusu və CEO-sudur. O, müəllim və təlimçidir, öz şagirdlərinə Zoom və Google Meet üzərindən online dərs keçir. İdeya onun öz dərslərində gördüyü boşluqdan yaranıb: kimin başa düşdüyünü, kimin isə susaraq geri qaldığını bilmək mümkün deyildi.',
  bio2:'Bu gün o, EdubbaX-ı qurur: dərsin içində anlamanı ölçən, boşluğu göstərən və müəllimə onu elə həmin dərsdə bağlamağa kömək edən AI. Başlanğıc Azərbaycanda müstəqil repetitorlar və kurs mərkəzləridir, sonra Türkiyə.',
@@ -187,7 +248,7 @@ az:{edu_h:'Təhsil',ms:'Magistratura',bs:'Bakalavr',msU:'Azərbaycan Texniki Uni
  pdf:'PDF-i aç',pptx:'PowerPoint-i yüklə',deckNote:'Başqa cür qeyd olunmayıbsa, rəqəmlər hədəf və təklifdir; demo rejimində sinif simulyasiya olunur.',
  contactEb:'Əlaqə',contactH:'Danışaq.',mail1:'EdubbaX e-poçtu',mail2:'Şəxsi e-poçt',phone:'Telefon',
  socialEb:'İzləyin',socialH:'EdubbaX və Omar sosial şəbəkələrdə.',all:'Bütün linklər',fDemo:'Məhsulun demosu',fWait:'Müəllim gözləmə siyahısı'},
-tr:{edu_h:'Eğitim',ms:'Yüksek lisans',bs:'Lisans',msU:'Azerbaycan Teknik Üniversitesi',bsD:'SABAH Grupları',bsU:'Bakü Devlet Üniversitesi',l1:'Bakü Devlet Üniversitesi',l2:'SABAH Grupları',l3:'Azerbaycan Teknik Üniversitesi',back:'← Ürüne dön',eyebrow:'Yatırımcılar için',role:'EdubbaX Kurucusu ve CEO’su',
+tr:{vEb:'Canlı doğrulama',vH:'Gerçek talep, otomatik güncellenir.',vBadge:'Canlı',wlL:'kişi bekleme listesi formunu doldurdu',wlP:'kişi pilota hazır',wlN:'Onaylı çevrim içi kayıtlar. Biri katıldığı anda güncellenir.',svL:'kişi ankete katıldı',yes:'EdubbaX’i pilotta denemek istiyor',no:'şimdilik istemiyor',svN:'Yüz yüze toplanan anket yanıtları; bekleme listesinden ayrı sayılır. Öğretmen, veli ve öğrenci.',cT:'Öğretmenler',cP:'Veliler',cS:'Öğrenciler',edu_h:'Eğitim',ms:'Yüksek lisans',bs:'Lisans',msU:'Azerbaycan Teknik Üniversitesi',bsD:'SABAH Grupları',bsU:'Bakü Devlet Üniversitesi',l1:'Bakü Devlet Üniversitesi',l2:'SABAH Grupları',l3:'Azerbaycan Teknik Üniversitesi',back:'← Ürüne dön',eyebrow:'Yatırımcılar için',role:'EdubbaX Kurucusu ve CEO’su',
  quote:'Öğretmen kimin anlamadığını sınavdan sonra değil, ders sırasında bilmelidir.',
  bio1:'Omar Heydar, EdubbaX’in kurucusu ve CEO’sudur. Öğretmen ve eğitmendir; kendi öğrencilerine Zoom ve Google Meet üzerinden çevrim içi ders verir. Fikir, kendi derslerinde gördüğü bir boşluktan doğdu: kimin anladığını, kimin sessizce geride kaldığını bilmenin yolu yoktu.',
  bio2:'Bugün EdubbaX’i inşa ediyor: ders sırasında anlamayı ölçen, boşluğu gösteren ve öğretmenin onu aynı derste kapatmasına yardım eden bir yapay zekâ. Başlangıç Azerbaycan’daki bağımsız özel öğretmenler ve kurs merkezleri, ardından Türkiye.',
@@ -199,15 +260,40 @@ tr:{edu_h:'Eğitim',ms:'Yüksek lisans',bs:'Lisans',msU:'Azerbaycan Teknik Üniv
  pdf:'PDF’i aç',pptx:'PowerPoint’i indir',deckNote:'Aksi belirtilmedikçe rakamlar hedef ve öneridir; demo modunda sınıf simüle edilir.',
  contactEb:'İletişim',contactH:'Konuşalım.',mail1:'EdubbaX e-postası',mail2:'Kişisel e-posta',phone:'Telefon',
  socialEb:'Takip edin',socialH:'Sosyal medyada EdubbaX ve Omar.',all:'Tüm bağlantılar',fDemo:'Ürün demosu',fWait:'Öğretmen bekleme listesi'}};
-const map={edu_h:'t-edu-h',ms:'t-ms',bs:'t-bs',msU:'t-ms-u',bsD:'t-bs-d',bsU:'t-bs-u',l1:'t-l1',l2:'t-l2',l3:'t-l3',back:'t-back',eyebrow:'t-eyebrow',role:'t-role',open:'t-open',mailbtn:'t-mailbtn',f1:'t-f1',f2:'t-f2',f3:'t-f3',f4:'t-f4',deckEb:'t-deck-eb',deckH:'t-deck-h',deckP:'t-deck-p',pdf:'t-pdf',pptx:'t-pptx',deckNote:'t-deck-note',contactEb:'t-contact-eb',contactH:'t-contact-h',mail1:'t-mail1',mail2:'t-mail2',phone:'t-phone',socialEb:'t-social-eb',socialH:'t-social-h',all:'t-all',fDemo:'t-f-demo',fWait:'t-f-wait'};
+const map={vEb:'t-live-eb',vH:'t-live-h',vBadge:'t-live-badge',wlL:'t-wl-l',wlP:'t-wl-pilot',wlN:'t-wl-note',svL:'t-sv-l',yes:'t-yes',no:'t-no',svN:'t-sv-note',edu_h:'t-edu-h',ms:'t-ms',bs:'t-bs',msU:'t-ms-u',bsD:'t-bs-d',bsU:'t-bs-u',l1:'t-l1',l2:'t-l2',l3:'t-l3',back:'t-back',eyebrow:'t-eyebrow',role:'t-role',open:'t-open',mailbtn:'t-mailbtn',f1:'t-f1',f2:'t-f2',f3:'t-f3',f4:'t-f4',deckEb:'t-deck-eb',deckH:'t-deck-h',deckP:'t-deck-p',pdf:'t-pdf',pptx:'t-pptx',deckNote:'t-deck-note',contactEb:'t-contact-eb',contactH:'t-contact-h',mail1:'t-mail1',mail2:'t-mail2',phone:'t-phone',socialEb:'t-social-eb',socialH:'t-social-h',all:'t-all',fDemo:'t-f-demo',fWait:'t-f-wait'};
+let curLang='en',stats=null;
 function setLang(l){const s=T[l]||T.en;document.documentElement.lang=l;for(const k in map){const el=document.getElementById(map[k]);if(el)el.textContent=s[k]}
  document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===l));
  const w=document.getElementById('t-f-wait');if(w)w.href='waitlist.html?lang='+l;
- try{history.replaceState(null,'','?lang='+l)}catch(e){}}
+ try{history.replaceState(null,'','?lang='+l)}catch(e){}
+ curLang=l;renderStats()}
 document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.l)));
 let q=(new URLSearchParams(location.search).get('lang')||'').toLowerCase();
 if(!T[q]){const n=(navigator.language||'en').slice(0,2).toLowerCase();q=T[n]?n:'en'}
 setLang(q);
+const fmt=n=>Number(n).toLocaleString('en-US');
+function renderStats(){
+ if(!stats)return;const w=stats.waitlist||{},sv=stats.survey||{},s=T[curLang]||T.en,C=2*Math.PI*48;
+ const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+ set('live-wl',fmt(w.total));set('lv-wl',fmt(w.total));set('lv-wl-pilot',fmt(w.pilot));
+ set('lv-sv',fmt(sv.total));set('lv-yes',fmt(sv.yes));set('lv-no',fmt(sv.no));
+ const dec=(sv.yes||0)+(sv.no||0),fy=dec?sv.yes/dec:0,fn=dec?sv.no/dec:0;
+ set('lv-pct',dec?Math.round(fy*100)+'%':'–');
+ const ay=document.getElementById('lv-arc-yes'),an=document.getElementById('lv-arc-no');
+ ay.setAttribute('stroke-dasharray',(fy*C)+' '+C);
+ an.setAttribute('stroke-dasharray',(fn*C)+' '+C);an.setAttribute('transform','rotate('+(-90+fy*360)+' 60 60)');
+ document.getElementById('lv-donut').setAttribute('aria-label',(s.yes||'')+': '+sv.yes+' / '+(s.no||'')+': '+sv.no);
+ const bc=sv.by_category||{},names={teacher:s.cT,parent:s.cP,student:s.cS};
+ document.getElementById('lv-cats').innerHTML=['teacher','parent','student'].filter(k=>bc[k]).map(k=>{const c=bc[k],p=c.total?Math.round(c.yes/c.total*100):0;
+  return '<div class="cat"><span>'+names[k]+'</span><div class="bar"><i style="width:'+p+'%"></i></div><b>'+c.yes+'/'+c.total+'</b></div>'}).join('');
+}
+async function loadStats(){
+ const cfg=window.EDUBBAX_CONFIG||{};if(!cfg.supabaseUrl||!cfg.supabaseKey)return;
+ try{const r=await fetch(cfg.supabaseUrl+'/rest/v1/rpc/public_stats',{method:'POST',headers:{apikey:cfg.supabaseKey,Authorization:'Bearer '+cfg.supabaseKey,'Content-Type':'application/json'},body:'{}',cache:'no-store'});
+  if(!r.ok)return;stats=await r.json();renderStats()}catch(e){}
+}
+loadStats();setInterval(loadStats,30000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)loadStats()});
 </script>
 </body>
 </html>
