@@ -155,37 +155,24 @@ section{margin-bottom:56px}
   <section id="live">
     <p class="eyebrow" id="t-live-eb"></p>
     <h2 id="t-live-h"></h2>
-    <div class="lcard tot">
-      <div><div class="big" id="lv-tot">…</div><div class="lbl" id="t-tot-l"></div></div>
-      <div class="eq"><div><b id="lv-tot-w">…</b> <span id="t-tot-w"></span></div><div><b id="lv-tot-s">…</b> <span id="t-tot-s"></span></div></div>
-      <div class="tp"><div class="n" id="lv-tot-p">…</div><div class="t" id="t-tot-p"></div></div>
-    </div>
-    <div class="live-grid">
-      <div class="lcard">
-        <div class="lbadge"><i></i><span id="t-live-badge"></span></div>
-        <div class="big" id="lv-wl">…</div>
-        <div class="lbl" id="t-wl-l"></div>
-        <div class="sub"><b id="lv-wl-pilot">…</b> <span id="t-wl-pilot"></span></div>
-        <p class="note" id="t-wl-note"></p>
+    <div class="lcard">
+      <div class="lbadge"><i></i><span id="t-live-badge"></span></div>
+      <div class="big" id="lv-tot">…</div>
+      <div class="lbl" id="t-tot-l"></div>
+      <div class="donut-row">
+        <svg class="donut" viewBox="0 0 120 120" role="img" id="lv-donut">
+          <circle class="bg" cx="60" cy="60" r="48"/>
+          <circle id="lv-arc-no" cx="60" cy="60" r="48" stroke="#E0564F" stroke-dasharray="0 301.6" transform="rotate(-90 60 60)"/>
+          <circle id="lv-arc-yes" cx="60" cy="60" r="48" stroke="#3FB27F" stroke-dasharray="0 301.6" transform="rotate(-90 60 60)"/>
+          <text x="60" y="68" id="lv-pct">…</text>
+        </svg>
+        <ul class="legend">
+          <li><i class="y"></i><b id="lv-yes">…</b><span id="t-yes"></span></li>
+          <li><i class="n"></i><b id="lv-no">…</b><span id="t-no"></span></li>
+        </ul>
       </div>
-      <div class="lcard">
-        <div class="big" id="lv-sv">…</div>
-        <div class="lbl" id="t-sv-l"></div>
-        <div class="donut-row">
-          <svg class="donut" viewBox="0 0 120 120" role="img" id="lv-donut">
-            <circle class="bg" cx="60" cy="60" r="48"/>
-            <circle id="lv-arc-no" cx="60" cy="60" r="48" stroke="#E0564F" stroke-dasharray="0 301.6" transform="rotate(-90 60 60)"/>
-            <circle id="lv-arc-yes" cx="60" cy="60" r="48" stroke="#3FB27F" stroke-dasharray="0 301.6" transform="rotate(-90 60 60)"/>
-            <text x="60" y="68" id="lv-pct">…</text>
-          </svg>
-          <ul class="legend">
-            <li><i class="y"></i><b id="lv-yes">…</b><span id="t-yes"></span></li>
-            <li><i class="n"></i><b id="lv-no">…</b><span id="t-no"></span></li>
-          </ul>
-        </div>
-        <div class="cats" id="lv-cats"></div>
-        <p class="note" id="t-sv-note"></p>
-      </div>
+      <div class="cats" id="lv-cats"></div>
+      <p class="note" id="t-sv-note"></p>
     </div>
   </section>
 
@@ -237,37 +224,37 @@ section{margin-bottom:56px}
 <script src="config.js"></script>
 <script>
 const T={
-en:{totL:'people reached in total',totW:'joined the waitlist form',totS:'took part in the survey',totP:'in total are ready to try the pilot',vEb:'Live validation',vH:'Real demand, updated automatically.',vBadge:'Live',wlL:'people signed up to the waitlist form',wlP:'of them are ready for the pilot',wlN:'Online signups with consent. Updates the moment someone joins.',svL:'people took part in the survey',yes:'want to try EdubbaX in the pilot',no:'not now',svN:'In-person survey answers collected by hand and counted separately from the waitlist. Teachers, parents, students and pupils.',cT:'Teachers',cP:'Parents',cS:'Students & pupils',edu_h:'Education',ms:'Master’s',bs:'Bachelor’s',msU:'Azerbaijan Technical University',bsD:'SABAH Groups',bsU:'Baku State University',l1:'Baku State University',l2:'SABAH Groups',l3:'Azerbaijan Technical University',back:'← Back to the product',eyebrow:'For investors',role:'Founder & CEO, EdubbaX',
+en:{cO:'Others',totL:'people have taken part so far',totW:'joined the waitlist form',totS:'took part in the survey',totP:'in total are ready to try the pilot',vEb:'Live validation',vH:'Real demand, updated automatically.',vBadge:'Live',wlL:'people signed up to the waitlist form',wlP:'of them are ready for the pilot',wlN:'Online signups with consent. Updates the moment someone joins.',svL:'people took part in the survey',yes:'want to try EdubbaX in the pilot',no:'not now',svN:'Online form signups and in-person survey answers, combined. Updates automatically when someone new joins.',cT:'Teachers',cP:'Parents',cS:'Students & pupils',edu_h:'Education',ms:'Master’s',bs:'Bachelor’s',msU:'Azerbaijan Technical University',bsD:'SABAH Groups',bsU:'Baku State University',l1:'Baku State University',l2:'SABAH Groups',l3:'Azerbaijan Technical University',back:'← Back to the product',eyebrow:'For investors',role:'Founder & CEO, EdubbaX',
  quote:'A teacher should know who didn’t understand during the lesson, not after the exam.',
  bio1:'Omar Heydar is the founder and CEO of EdubbaX. He is a teacher and trainer who teaches his own students online over Zoom and Google Meet. The idea came from a gap he saw in his own lessons: there was no way to know who understood and who was silently falling behind.',
  bio2:'Today he is building EdubbaX, an AI layer that measures understanding during the lesson, flags the gap and helps the teacher close it in the same lesson. It starts with independent tutors and tutoring centres in Azerbaijan, then Turkey.',
  edu:'B.Sc., SABAH Groups, Baku State University · M.Sc., Azerbaijan Technical University, Organization and Management of Business',
  open:'View the pitch deck',mailbtn:'Email me',
- f1:'Pre-seed round, for 11% equity',f2:'people on the waitlist',f3:'interface languages live: AZ, TR, RU, EN',f4:'market sequence, then the Turkic world and MENA',
+ f1:'Pre-seed round, for 11% equity',f2:'people have taken part so far',f3:'interface languages live: AZ, TR, RU, EN',f4:'market sequence, then the Turkic world and MENA',
  deckEb:'Pitch deck',deckH:'The full story in 21 slides.',
  deckP:'Problem, product, market, business model, go-to-market, 12-month targets and the ask. Open it in the browser or download the editable PowerPoint file.',
  pdf:'Open PDF',pptx:'Download PowerPoint',deckNote:'Figures are targets and proposals unless stated otherwise; demo mode uses a simulated class.',
  contactEb:'Contact',contactH:'Let’s talk.',mail1:'EdubbaX email',mail2:'Personal email',phone:'Phone',
  socialEb:'Follow',socialH:'EdubbaX and Omar on social media.',all:'All links',fDemo:'Product demo',fWait:'Teacher waitlist'},
-az:{totL:'nəfər ümumilikdə',totW:'nəfər waitlist-də',totS:'nəfər sorğuda',totP:'nəfər ümumilikdə pilotu sınamağa hazırdır',vEb:'Canlı yoxlama',vH:'Real tələbat, avtomatik yenilənir.',vBadge:'Canlı',wlL:'nəfər gözləmə siyahısı formasını doldurub',wlP:'nəfəri pilota hazırdır',wlN:'Razılıqla onlayn qeydiyyat. Kimsə qoşulan kimi yenilənir.',svL:'nəfər sorğuda iştirak edib',yes:'EdubbaX-ı pilotda sınamaq istəyir',no:'hələlik istəmir',svN:'Əyani toplanmış sorğu cavabları; gözləmə siyahısından ayrı sayılır. Müəllim, valideyn və şagird/tələbə.',cT:'Müəllimlər',cP:'Valideynlər',cS:'Şagird və tələbələr',edu_h:'Təhsil',ms:'Magistratura',bs:'Bakalavr',msU:'Azərbaycan Texniki Universiteti',bsD:'SABAH qrupları',bsU:'Bakı Dövlət Universiteti',l1:'Bakı Dövlət Universiteti',l2:'SABAH qrupları',l3:'Azərbaycan Texniki Universiteti',back:'← Məhsula qayıt',eyebrow:'İnvestorlar üçün',role:'EdubbaX-ın qurucusu və CEO-su',
+az:{cO:'Digərləri',totL:'nəfər indiyədək iştirak edib',totW:'nəfər waitlist-də',totS:'nəfər sorğuda',totP:'nəfər ümumilikdə pilotu sınamağa hazırdır',vEb:'Canlı yoxlama',vH:'Real tələbat, avtomatik yenilənir.',vBadge:'Canlı',wlL:'nəfər gözləmə siyahısı formasını doldurub',wlP:'nəfəri pilota hazırdır',wlN:'Razılıqla onlayn qeydiyyat. Kimsə qoşulan kimi yenilənir.',svL:'nəfər sorğuda iştirak edib',yes:'EdubbaX-ı pilotda sınamaq istəyir',no:'hələlik istəmir',svN:'Onlayn forma və əyani sorğu cavabları birlikdə sayılır. Yeni biri qoşulanda avtomatik yenilənir.',cT:'Müəllimlər',cP:'Valideynlər',cS:'Şagird və tələbələr',edu_h:'Təhsil',ms:'Magistratura',bs:'Bakalavr',msU:'Azərbaycan Texniki Universiteti',bsD:'SABAH qrupları',bsU:'Bakı Dövlət Universiteti',l1:'Bakı Dövlət Universiteti',l2:'SABAH qrupları',l3:'Azərbaycan Texniki Universiteti',back:'← Məhsula qayıt',eyebrow:'İnvestorlar üçün',role:'EdubbaX-ın qurucusu və CEO-su',
  quote:'Müəllim kimin başa düşmədiyini imtahandan sonra yox, dərsin içində bilməlidir.',
  bio1:'Omar Heydar EdubbaX-ın qurucusu və CEO-sudur. O, müəllim və təlimçidir, öz şagirdlərinə Zoom və Google Meet üzərindən online dərs keçir. İdeya onun öz dərslərində gördüyü boşluqdan yaranıb: kimin başa düşdüyünü, kimin isə susaraq geri qaldığını bilmək mümkün deyildi.',
  bio2:'Bu gün o, EdubbaX-ı qurur: dərsin içində anlamanı ölçən, boşluğu göstərən və müəllimə onu elə həmin dərsdə bağlamağa kömək edən AI. Başlanğıc Azərbaycanda müstəqil repetitorlar və kurs mərkəzləridir, sonra Türkiyə.',
  edu:'Bakalavr: SABAH qrupları, Bakı Dövlət Universiteti · Magistr: Azərbaycan Texniki Universiteti, Biznesin təşkili və idarə edilməsi',
  open:'Pitch deck-ə bax',mailbtn:'Mənə yazın',
- f1:'Pre-seed raundu, 11% pay müqabilində',f2:'nəfər gözləmə siyahısında',f3:'interfeys dili hazırdır: AZ, TR, RU, EN',f4:'bazar ardıcıllığı, sonra türk dünyası və MENA',
+ f1:'Pre-seed raundu, 11% pay müqabilində',f2:'nəfər indiyədək iştirak edib',f3:'interfeys dili hazırdır: AZ, TR, RU, EN',f4:'bazar ardıcıllığı, sonra türk dünyası və MENA',
  deckEb:'Pitch deck',deckH:'Bütün hekayə 21 slaydda.',
  deckP:'Problem, məhsul, bazar, biznes model, bazara çıxış, 12 aylıq hədəflər və investisiya tələbi. Brauzerdə açın və ya redaktə edilə bilən PowerPoint faylını yükləyin.',
  pdf:'PDF-i aç',pptx:'PowerPoint-i yüklə',deckNote:'Başqa cür qeyd olunmayıbsa, rəqəmlər hədəf və təklifdir; demo rejimində sinif simulyasiya olunur.',
  contactEb:'Əlaqə',contactH:'Danışaq.',mail1:'EdubbaX e-poçtu',mail2:'Şəxsi e-poçt',phone:'Telefon',
  socialEb:'İzləyin',socialH:'EdubbaX və Omar sosial şəbəkələrdə.',all:'Bütün linklər',fDemo:'Məhsulun demosu',fWait:'Müəllim gözləmə siyahısı'},
-tr:{totL:'kişi toplamda',totW:'kişi bekleme listesinde',totS:'kişi ankette',totP:'kişi toplamda pilotu denemeye hazır',vEb:'Canlı doğrulama',vH:'Gerçek talep, otomatik güncellenir.',vBadge:'Canlı',wlL:'kişi bekleme listesi formunu doldurdu',wlP:'kişi pilota hazır',wlN:'Onaylı çevrim içi kayıtlar. Biri katıldığı anda güncellenir.',svL:'kişi ankete katıldı',yes:'EdubbaX’i pilotta denemek istiyor',no:'şimdilik istemiyor',svN:'Yüz yüze toplanan anket yanıtları; bekleme listesinden ayrı sayılır. Öğretmen, veli ve öğrenci.',cT:'Öğretmenler',cP:'Veliler',cS:'Öğrenciler',edu_h:'Eğitim',ms:'Yüksek lisans',bs:'Lisans',msU:'Azerbaycan Teknik Üniversitesi',bsD:'SABAH Grupları',bsU:'Bakü Devlet Üniversitesi',l1:'Bakü Devlet Üniversitesi',l2:'SABAH Grupları',l3:'Azerbaycan Teknik Üniversitesi',back:'← Ürüne dön',eyebrow:'Yatırımcılar için',role:'EdubbaX Kurucusu ve CEO’su',
+tr:{cO:'Diğerleri',totL:'kişi şimdiye kadar katıldı',totW:'kişi bekleme listesinde',totS:'kişi ankette',totP:'kişi toplamda pilotu denemeye hazır',vEb:'Canlı doğrulama',vH:'Gerçek talep, otomatik güncellenir.',vBadge:'Canlı',wlL:'kişi bekleme listesi formunu doldurdu',wlP:'kişi pilota hazır',wlN:'Onaylı çevrim içi kayıtlar. Biri katıldığı anda güncellenir.',svL:'kişi ankete katıldı',yes:'EdubbaX’i pilotta denemek istiyor',no:'şimdilik istemiyor',svN:'Çevrim içi form ve yüz yüze anket yanıtları birlikte sayılır. Yeni biri katıldığında otomatik güncellenir.',cT:'Öğretmenler',cP:'Veliler',cS:'Öğrenciler',edu_h:'Eğitim',ms:'Yüksek lisans',bs:'Lisans',msU:'Azerbaycan Teknik Üniversitesi',bsD:'SABAH Grupları',bsU:'Bakü Devlet Üniversitesi',l1:'Bakü Devlet Üniversitesi',l2:'SABAH Grupları',l3:'Azerbaycan Teknik Üniversitesi',back:'← Ürüne dön',eyebrow:'Yatırımcılar için',role:'EdubbaX Kurucusu ve CEO’su',
  quote:'Öğretmen kimin anlamadığını sınavdan sonra değil, ders sırasında bilmelidir.',
  bio1:'Omar Heydar, EdubbaX’in kurucusu ve CEO’sudur. Öğretmen ve eğitmendir; kendi öğrencilerine Zoom ve Google Meet üzerinden çevrim içi ders verir. Fikir, kendi derslerinde gördüğü bir boşluktan doğdu: kimin anladığını, kimin sessizce geride kaldığını bilmenin yolu yoktu.',
  bio2:'Bugün EdubbaX’i inşa ediyor: ders sırasında anlamayı ölçen, boşluğu gösteren ve öğretmenin onu aynı derste kapatmasına yardım eden bir yapay zekâ. Başlangıç Azerbaycan’daki bağımsız özel öğretmenler ve kurs merkezleri, ardından Türkiye.',
  edu:'Lisans: SABAH Grupları, Bakü Devlet Üniversitesi · Yüksek lisans: Azerbaycan Teknik Üniversitesi, İşletme Organizasyonu ve Yönetimi',
  open:'Sunumu görüntüle',mailbtn:'Bana yazın',
- f1:'Pre-seed turu, %11 hisse karşılığında',f2:'kişi bekleme listesinde',f3:'arayüz dili hazır: AZ, TR, RU, EN',f4:'pazar sırası, ardından Türk dünyası ve MENA',
+ f1:'Pre-seed turu, %11 hisse karşılığında',f2:'kişi şimdiye kadar katıldı',f3:'arayüz dili hazır: AZ, TR, RU, EN',f4:'pazar sırası, ardından Türk dünyası ve MENA',
  deckEb:'Yatırımcı sunumu',deckH:'Tüm hikâye 21 slaytta.',
  deckP:'Problem, ürün, pazar, iş modeli, pazara giriş, 12 aylık hedefler ve yatırım talebi. Tarayıcıda açın veya düzenlenebilir PowerPoint dosyasını indirin.',
  pdf:'PDF’i aç',pptx:'PowerPoint’i indir',deckNote:'Aksi belirtilmedikçe rakamlar hedef ve öneridir; demo modunda sınıf simüle edilir.',
@@ -286,19 +273,17 @@ if(!T[q]){const n=(navigator.language||'en').slice(0,2).toLowerCase();q=T[n]?n:'
 setLang(q);
 const fmt=n=>Number(n).toLocaleString('en-US');
 function renderStats(){
- if(!stats)return;const w=stats.waitlist||{},sv=stats.survey||{},s=T[curLang]||T.en,C=2*Math.PI*48;
+ if(!stats)return;const st=stats,s=T[curLang]||T.en,C=2*Math.PI*48;
  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
- set('live-wl',fmt(w.total));set('lv-wl',fmt(w.total));set('lv-wl-pilot',fmt(w.pilot));
- set('lv-tot',fmt((w.total||0)+(sv.total||0)));set('lv-tot-w',fmt(w.total));set('lv-tot-s',fmt(sv.total));set('lv-tot-p',fmt((w.pilot||0)+(sv.yes||0)));
- set('lv-sv',fmt(sv.total));set('lv-yes',fmt(sv.yes));set('lv-no',fmt(sv.no));
- const dec=(sv.yes||0)+(sv.no||0),fy=dec?sv.yes/dec:0,fn=dec?sv.no/dec:0;
+ set('live-wl',fmt(st.total));set('lv-tot',fmt(st.total));set('lv-yes',fmt(st.yes));set('lv-no',fmt(st.no));
+ const dec=(st.yes||0)+(st.no||0),fy=dec?st.yes/dec:0,fn=dec?st.no/dec:0;
  set('lv-pct',dec?Math.round(fy*100)+'%':'–');
  const ay=document.getElementById('lv-arc-yes'),an=document.getElementById('lv-arc-no');
  ay.setAttribute('stroke-dasharray',(fy*C)+' '+C);
  an.setAttribute('stroke-dasharray',(fn*C)+' '+C);an.setAttribute('transform','rotate('+(-90+fy*360)+' 60 60)');
- document.getElementById('lv-donut').setAttribute('aria-label',(s.yes||'')+': '+sv.yes+' / '+(s.no||'')+': '+sv.no);
- const bc=sv.by_category||{},names={teacher:s.cT,parent:s.cP,student:s.cS};
- document.getElementById('lv-cats').innerHTML=['teacher','parent','student'].filter(k=>bc[k]).map(k=>{const c=bc[k],p=c.total?Math.round(c.yes/c.total*100):0;
+ document.getElementById('lv-donut').setAttribute('aria-label',(s.yes||'')+': '+st.yes+' / '+(s.no||'')+': '+st.no);
+ const bc=st.by_category||{},names={teacher:s.cT,parent:s.cP,student:s.cS,other:s.cO};
+ document.getElementById('lv-cats').innerHTML=['teacher','parent','student','other'].filter(k=>bc[k]).map(k=>{const c=bc[k],p=c.total?Math.round(c.yes/c.total*100):0;
   return '<div class="cat"><span>'+names[k]+'</span><div class="bar"><i style="width:'+p+'%"></i></div><b>'+c.yes+'/'+c.total+'</b></div>'}).join('');
 }
 async function loadStats(){
