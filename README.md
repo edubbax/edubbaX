@@ -74,3 +74,11 @@ The long-term vision of EdubbaX is to create a connected and intelligent educati
 ## Development
 
 This repository is part of the ongoing development of EdubbaX. Features, architecture, and implementation details will evolve as the product progresses through validation and MVP development.
+## Site build (SEO and shared layout)
+
+Static pages share one header, footer and SEO block. After editing page text or `tools/build.py`:
+
+1. `python3 tools/build.py` — writes the head tags (title, description, canonical, hreflang, Open Graph, JSON-LD), the shared header/footer, `sitemap.xml` and `robots.txt`.
+2. Serve the folder with clean URLs on `localhost:8766` and run `node tools/bake.js` — pre-renders the Azerbaijani text into the HTML so search engines see it without JavaScript.
+
+When the site moves to its own domain, change `SITE` in `tools/build.py` and in `assets/i18n.js`, then repeat both steps.
