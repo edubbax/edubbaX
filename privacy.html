@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EdubbaX · Məxfilik siyasəti</title>
+<meta name="description" content="EdubbaX hansı məlumatları toplayır, harada saxlayır və necə qoruyur.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" data-l="./" href="./" aria-label="EdubbaX">edubba<b>X</b></a>
+    <div class="topr">
+      <a class="nav-a" data-l="courses.html" href="courses.html" data-t="nCourses"></a>
+      <a class="nav-a on" data-l="privacy.html" href="privacy.html" data-t="nPrivacy"></a>
+      <a class="nav-a" data-l="terms.html" href="terms.html" data-t="nTerms"></a>
+      <div class="lang" role="group" aria-label="Language"><button type="button" data-l="az">AZ</button><button type="button" data-l="tr">TR</button><button type="button" data-l="en">EN</button></div>
+    </div>
+  </header>
+  <article class="legal">
+    <p class="eyebrow" data-t="eb"></p>
+    <h1 data-t="h"></h1>
+    <p class="lead" data-t="p"></p>
+    <p class="upd" data-t="upd"></p>
+    <nav class="toc" aria-label="Contents"><b data-t="toc"></b><ol id="toc"></ol></nav>
+    <div id="body"></div>
+  </article>
+  <footer class="foot">
+    <span>© 2026 EdubbaX · Making Learning Measurable</span>
+    <nav><a data-l="./" href="./" data-t="nDemo"></a><a data-l="courses.html" href="courses.html" data-t="nCourses"></a><a data-l="terms.html" href="terms.html" data-t="nTerms"></a></nav>
+  </footer>
+</div>
+<script src="assets/i18n.js"></script>
+<script>
+const T={
+az:{title:'EdubbaX · Məxfilik siyasəti',desc:'EdubbaX hansı məlumatları toplayır, harada saxlayır və necə qoruyur.',nCourses:'Kurslar üçün',nPrivacy:'Məxfilik',nTerms:'İstifadə şərtləri',nDemo:'Demoya bax',
+eb:'Hüquqi məlumat',h:'Məxfilik siyasəti',p:'Bu səhifə EdubbaX-ın hansı məlumatları topladığını, nə üçün istifadə etdiyini, harada saxladığını və sizin hansı hüquqlarınızın olduğunu izah edir.',upd:'Son yenilənmə: 15 noyabr 2026',toc:'Mündəricat',
+S:[
+['Biz kimik','<p>EdubbaX müəllimlər və tədris mərkəzləri üçün dərs içi qiymətləndirmə və hesabat platformasıdır. Xidməti EdubbaX layihəsi (təsisçi: Ömər Heydər) idarə edir. Əlaqə: <a href="mailto:edubbax@gmail.com">edubbax@gmail.com</a>, +994 55 821 75 75.</p><p>Məlumatları Azərbaycan Respublikasının "Fərdi məlumatlar haqqında" Qanununa, Türkiyədəki istifadəçilər üçün isə 6698 saylı Fərdi Məlumatların Qorunması Qanununa (KVKK) uyğun emal edirik.</p>'],
+['Kimin məlumatları, hansı rolda','<p>Kurs və ya müəllim EdubbaX-a şagird məlumatı əlavə edəndə həmin məlumatın sahibi və ona görə məsuliyyət daşıyan tərəf kurs (müəllim) olur. EdubbaX bu məlumatı yalnız kursun tapşırığı ilə, xidməti göstərmək üçün emal edir.</p><p>Müəllim və mərkəz hesabları, gözləmə siyahısı və əlaqə məlumatları üçün isə məsuliyyət daşıyan tərəf EdubbaX-dır.</p>'],
+['Topladığımız məlumatlar','<div class="tablewrap"><table><tr><th>Kim</th><th>Məlumat</th></tr><tr><td>Müəllim, mərkəz rəhbəri</td><td>ad, e-poçt, şifrə (yalnız şifrələnmiş formada saxlanır), mərkəzin adı, fənn</td></tr><tr><td>Şagird</td><td>müəllimin yazdığı ad, avtomatik yaradılan ID (EX-XXX-XXXX), test cavabları, ballar, davamiyyət, kursun daxil etdiyi ödəniş qeydləri (ay, məbləğ, status)</td></tr><tr><td>Valideyn</td><td>hesab tələb olunmur; hesabat yalnız xüsusi link ilə açılır</td></tr><tr><td>Gözləmə siyahısı və pilot müraciəti</td><td>ad, e-poçt, rol, qurum, fənn, qeyd etdiyiniz problem, pilota hazırlıq, razılıq tarixi</td></tr><tr><td>Hər kəs</td><td>texniki jurnallar: IP ünvanı, brauzer növü, sorğu vaxtı (hosting provayderi tərəfindən, təhlükəsizlik üçün)</td></tr></table></div><p>Şagirdlərdən e-poçt, telefon, ünvan və ya şəxsiyyət vəsiqəsi məlumatı istəmirik.</p>'],
+['Nə üçün istifadə edirik','<ul><li>xidməti göstərmək: test aparmaq, bal hesablamaq, hesabat hazırlamaq;</li><li>hesaba giriş və təhlükəsizlik;</li><li>pilot üçün sizinlə əlaqə saxlamaq (yalnız razılıq vermisinizsə);</li><li>xidməti yaxşılaşdırmaq üçün adsız, ümumiləşdirilmiş statistika.</li></ul><p>Məlumatları <b>satmırıq</b>, reklam üçün istifadə etmirik və reklam şəbəkələri ilə paylaşmırıq.</p>'],
+['AI ilə sual hazırlanması','<p>Müəllim material (mətn, PDF və ya şəkil) yükləyib "AI ilə sual hazırla" seçəndə həmin material sual hazırlamaq üçün Google-un Gemini xidmətinə ötürülür. Bu zaman şagird adları və nəticələri göndərilmir.</p><p>Xahiş edirik, yüklədiyiniz materiala şagirdlərin şəxsi məlumatlarını daxil etməyin. AI-nin hazırladığı suallar istifadədən əvvəl müəllim tərəfindən yoxlanılmalıdır.</p>'],
+['Məlumatlar harada saxlanılır','<p>Əsas məlumat bazası və giriş sistemi Supabase xidmətində, Avropa İttifaqında (Almaniya, Frankfurt) yerləşən serverlərdədir. Sayt Vercel xidməti ilə yayımlanır. Bu o deməkdir ki, məlumatlar Azərbaycan və Türkiyə hüdudlarından kənarda, Avropa İttifaqının məlumat qorunması tələblərinə tabe olan serverlərdə saxlanılır.</p><div class="tablewrap"><table><tr><th>Xidmət</th><th>Nə üçün</th><th>Yer</th></tr><tr><td>Supabase</td><td>məlumat bazası, hesablar</td><td>Aİ, Frankfurt</td></tr><tr><td>Vercel</td><td>saytın yayımı, texniki jurnallar</td><td>qlobal şəbəkə</td></tr><tr><td>Google (Gemini)</td><td>materialdan sual hazırlanması</td><td>Google serverləri</td></tr></table></div>'],
+['Təhlükəsizlik','<ul><li>bütün əlaqə şifrələnmiş kanalla (HTTPS) gedir;</li><li>məlumat bazası diskdə şifrələnmiş saxlanılır;</li><li>hər müəllim yalnız öz şagirdlərini görür, mərkəz rəhbəri yalnız ümumi rəqəmləri görür, valideyn yalnız öz övladının hesabatını görür;</li><li>şifrələr açıq mətn kimi saxlanılmır;</li><li>demo rejimində məlumat serverə göndərilmir, yalnız sizin brauzerinizdə qalır.</li></ul><p>Məlumat sızması baş verərsə, təsirlənən kursları və istifadəçiləri 72 saat ərzində xəbərdar edəcəyik.</p>'],
+['Uşaqların məlumatları','<p>Şagirdlər çox vaxt 18 yaşdan kiçik olur. Kurs şagirdləri EdubbaX-a əlavə etməzdən əvvəl valideynləri məlumatlandırmağa və lazım olan razılığı almağa cavabdehdir. Bunun üçün nümunə razılıq mətnini sorğu ilə təqdim edirik. Şagird özü hesab yaratmır və e-poçt ünvanı vermir.</p>'],
+['Saxlama müddəti','<ul><li>Kurs məlumatları: müqavilə qüvvədə olduğu müddətdə. Müqavilə bitəndən sonra 30 gün ərzində ixrac üçün saxlanılır, sonra silinir.</li><li>Gözləmə siyahısı: pilot proqramı bitənə qədər və ya razılığınızı geri götürənə qədər.</li><li>Texniki jurnallar: hosting provayderinin qaydasına uyğun qısa müddət.</li></ul>'],
+['Kukilər və brauzer yaddaşı','<p>Reklam və izləmə kukilərindən istifadə etmirik. Brauzerin yaddaşında yalnız seçdiyiniz dil, giriş sessiyası və demo rejimindəki məlumatlar saxlanılır.</p>'],
+['Sizin hüquqlarınız','<p>İstənilən vaxt aşağıdakıları tələb edə bilərsiniz:</p><ul><li>haqqınızda hansı məlumatın saxlanıldığını öyrənmək;</li><li>səhv məlumatı düzəltmək;</li><li>məlumatın silinməsi;</li><li>məlumatın ixracı (kurslar üçün);</li><li>razılığı geri götürmək.</li></ul><p>Tələbi <a href="mailto:edubbax@gmail.com">edubbax@gmail.com</a> ünvanına yazın. Ən geci 30 gün ərzində cavab veririk. Şagirdin məlumatı ilə bağlı tələbi kursa da göndərə bilərsiniz, kurs onu bizə ötürəcək.</p>'],
+['Dəyişikliklər','<p>Bu siyasəti dəyişsək, yeni mətni bu səhifədə dərc edəcəyik. Əhəmiyyətli dəyişiklik olarsa, kursları ən azı 14 gün əvvəl e-poçtla xəbərdar edəcəyik.</p>']
+]},
+
+tr:{title:'EdubbaX · Gizlilik politikası',desc:'EdubbaX hangi verileri topluyor, nerede saklıyor ve nasıl koruyor.',nCourses:'Kurslar için',nPrivacy:'Gizlilik',nTerms:'Kullanım şartları',nDemo:'Demoyu gör',
+eb:'Yasal bilgi',h:'Gizlilik politikası',p:'Bu sayfa EdubbaX’in hangi verileri topladığını, ne için kullandığını, nerede sakladığını ve hangi haklara sahip olduğunuzu açıklar.',upd:'Son güncelleme: 15 Kasım 2026',toc:'İçindekiler',
+S:[
+['Biz kimiz','<p>EdubbaX, öğretmenler ve kurs merkezleri için ders içi ölçme ve raporlama platformudur. Hizmeti EdubbaX projesi (kurucu: Ömər Heydər) yürütür. İletişim: <a href="mailto:edubbax@gmail.com">edubbax@gmail.com</a>, +994 55 821 75 75.</p><p>Verileri Azerbaycan Cumhuriyeti "Kişisel Veriler Hakkında" Kanunu’na, Türkiye’deki kullanıcılar için ise 6698 sayılı Kişisel Verilerin Korunması Kanunu’na (KVKK) uygun olarak işliyoruz.</p>'],
+['Kimin verisi, hangi rolde','<p>Kurs veya öğretmen EdubbaX’e öğrenci verisi eklediğinde bu verinin sorumlusu kurstur (öğretmendir). EdubbaX bu veriyi yalnızca kursun talimatıyla, hizmeti sunmak için işler (veri işleyen).</p><p>Öğretmen ve merkez hesapları, bekleme listesi ve iletişim verileri için veri sorumlusu EdubbaX’tir.</p>'],
+['Topladığımız veriler','<div class="tablewrap"><table><tr><th>Kim</th><th>Veri</th></tr><tr><td>Öğretmen, merkez yöneticisi</td><td>ad, e-posta, şifre (yalnızca şifrelenmiş hâlde saklanır), merkez adı, ders</td></tr><tr><td>Öğrenci</td><td>öğretmenin yazdığı ad, otomatik oluşturulan ID (EX-XXX-XXXX), test cevapları, puanlar, devam, kursun girdiği ödeme kayıtları (ay, tutar, durum)</td></tr><tr><td>Veli</td><td>hesap gerekmez; rapor yalnızca özel bağlantıyla açılır</td></tr><tr><td>Bekleme listesi ve pilot başvurusu</td><td>ad, e-posta, rol, kurum, ders, belirttiğiniz sorun, pilota hazırlık, onay tarihi</td></tr><tr><td>Herkes</td><td>teknik kayıtlar: IP adresi, tarayıcı türü, istek zamanı (barındırma sağlayıcısı tarafından, güvenlik için)</td></tr></table></div><p>Öğrencilerden e-posta, telefon, adres veya kimlik bilgisi istemiyoruz.</p>'],
+['Ne için kullanıyoruz','<ul><li>hizmeti sunmak: test yapmak, puan hesaplamak, rapor hazırlamak;</li><li>hesaba giriş ve güvenlik;</li><li>pilot için sizinle iletişim kurmak (yalnızca onay verdiyseniz);</li><li>hizmeti geliştirmek için anonim, toplu istatistik.</li></ul><p>Verileri <b>satmıyoruz</b>, reklam için kullanmıyoruz ve reklam ağlarıyla paylaşmıyoruz.</p>'],
+['Yapay zekâ ile soru hazırlama','<p>Öğretmen materyal (metin, PDF veya görsel) yükleyip "Yapay zekâ ile soru hazırla"yı seçtiğinde bu materyal soru hazırlamak için Google’ın Gemini hizmetine aktarılır. Bu sırada öğrenci adları ve sonuçları gönderilmez.</p><p>Lütfen yüklediğiniz materyale öğrencilerin kişisel verilerini eklemeyin. Yapay zekânın hazırladığı sorular kullanılmadan önce öğretmen tarafından kontrol edilmelidir.</p>'],
+['Veriler nerede saklanıyor','<p>Ana veritabanı ve giriş sistemi Supabase hizmetinde, Avrupa Birliği’nde (Almanya, Frankfurt) bulunan sunuculardadır. Site Vercel hizmetiyle yayınlanır. Yani veriler Azerbaycan ve Türkiye dışında, Avrupa Birliği veri koruma kurallarına tabi sunucularda saklanır. Türkiye’deki kurslar için yurt dışına aktarım, KVKK’nın öngördüğü şartlara uygun olarak sözleşmede ayrıca düzenlenir.</p><div class="tablewrap"><table><tr><th>Hizmet</th><th>Ne için</th><th>Yer</th></tr><tr><td>Supabase</td><td>veritabanı, hesaplar</td><td>AB, Frankfurt</td></tr><tr><td>Vercel</td><td>sitenin yayını, teknik kayıtlar</td><td>küresel ağ</td></tr><tr><td>Google (Gemini)</td><td>materyalden soru hazırlama</td><td>Google sunucuları</td></tr></table></div>'],
+['Güvenlik','<ul><li>tüm bağlantı şifreli kanaldan (HTTPS) yapılır;</li><li>veritabanı diskte şifreli saklanır;</li><li>her öğretmen yalnızca kendi öğrencilerini, merkez yöneticisi yalnızca genel sayıları, veli yalnızca kendi çocuğunun raporunu görür;</li><li>şifreler açık metin olarak saklanmaz;</li><li>demo modunda veri sunucuya gönderilmez, yalnızca tarayıcınızda kalır.</li></ul><p>Veri ihlali olursa etkilenen kursları ve kullanıcıları 72 saat içinde bilgilendiririz.</p>'],
+['Çocukların verileri','<p>Öğrenciler çoğunlukla 18 yaşından küçüktür. Kurs, öğrencileri EdubbaX’e eklemeden önce velileri bilgilendirmek ve gerekli onayı almakla yükümlüdür. Bunun için örnek aydınlatma ve onay metnini talep üzerine sağlıyoruz. Öğrenci kendisi hesap açmaz ve e-posta vermez.</p>'],
+['Saklama süresi','<ul><li>Kurs verileri: sözleşme yürürlükte olduğu sürece. Sözleşme bittikten sonra 30 gün dışa aktarım için saklanır, ardından silinir.</li><li>Bekleme listesi: pilot program bitene veya onayınızı geri alana kadar.</li><li>Teknik kayıtlar: barındırma sağlayıcısının kurallarına göre kısa süre.</li></ul>'],
+['Çerezler ve tarayıcı belleği','<p>Reklam ve izleme çerezleri kullanmıyoruz. Tarayıcı belleğinde yalnızca seçtiğiniz dil, oturum bilgisi ve demo modundaki veriler tutulur.</p>'],
+['Haklarınız','<p>İstediğiniz zaman şunları talep edebilirsiniz:</p><ul><li>hakkınızda hangi verinin saklandığını öğrenmek;</li><li>yanlış veriyi düzeltmek;</li><li>verinin silinmesi;</li><li>verinin dışa aktarılması (kurslar için);</li><li>onayı geri almak.</li></ul><p>Talebinizi <a href="mailto:edubbax@gmail.com">edubbax@gmail.com</a> adresine yazın. En geç 30 gün içinde yanıt veriyoruz. Öğrenci verisiyle ilgili talebi kursa da iletebilirsiniz; kurs bize aktarır.</p>'],
+['Değişiklikler','<p>Bu politikayı değiştirirsek yeni metni bu sayfada yayınlarız. Önemli bir değişiklik olursa kursları en az 14 gün önce e-postayla bilgilendiririz.</p>']
+]},
+
+en:{title:'EdubbaX · Privacy policy',desc:'What data EdubbaX collects, where it is stored and how it is protected.',nCourses:'For centres',nPrivacy:'Privacy',nTerms:'Terms of use',nDemo:'See the demo',
+eb:'Legal',h:'Privacy policy',p:'This page explains what data EdubbaX collects, what it is used for, where it is stored and what rights you have.',upd:'Last updated: 15 November 2026',toc:'Contents',
+S:[
+['Who we are','<p>EdubbaX is an in-lesson assessment and reporting platform for teachers and tutoring centres. The service is run by the EdubbaX project (founder: Ömər Heydər). Contact: <a href="mailto:edubbax@gmail.com">edubbax@gmail.com</a>, +994 55 821 75 75.</p><p>We process data in line with the Law of the Republic of Azerbaijan "On Personal Data" and, for users in Türkiye, Law No. 6698 on the Protection of Personal Data (KVKK).</p>'],
+['Whose data, in what role','<p>When a centre or teacher adds student data to EdubbaX, the centre (teacher) is the controller of that data. EdubbaX processes it only on the centre’s instructions, to provide the service (as a processor).</p><p>For teacher and centre accounts, the waitlist and contact details, EdubbaX is the controller.</p>'],
+['Data we collect','<div class="tablewrap"><table><tr><th>Who</th><th>Data</th></tr><tr><td>Teacher, centre manager</td><td>name, email, password (stored only in hashed form), centre name, subject</td></tr><tr><td>Student</td><td>name entered by the teacher, an auto-generated ID (EX-XXX-XXXX), quiz answers, scores, attendance, payment records entered by the centre (month, amount, status)</td></tr><tr><td>Parent</td><td>no account needed; the report opens only via a private link</td></tr><tr><td>Waitlist and pilot application</td><td>name, email, role, organisation, subject, the problem you describe, pilot readiness, consent date</td></tr><tr><td>Everyone</td><td>technical logs: IP address, browser type, request time (kept by the hosting provider for security)</td></tr></table></div><p>We do not ask students for an email, phone number, address or ID document.</p>'],
+['How we use it','<ul><li>to provide the service: running quizzes, scoring and preparing reports;</li><li>for sign-in and security;</li><li>to contact you about the pilot (only if you consented);</li><li>anonymous, aggregated statistics to improve the service.</li></ul><p>We do <b>not sell</b> data, do not use it for advertising and do not share it with ad networks.</p>'],
+['AI question drafting','<p>When a teacher uploads material (text, PDF or image) and chooses "Draft questions with AI", that material is sent to Google’s Gemini service to draft questions. Student names and results are not sent.</p><p>Please do not include students’ personal data in uploaded material. Questions drafted by AI must be reviewed by the teacher before use.</p>'],
+['Where data is stored','<p>The main database and sign-in system run on Supabase, on servers in the European Union (Frankfurt, Germany). The website is served by Vercel. This means data is stored outside Azerbaijan and Türkiye, on servers subject to EU data-protection rules.</p><div class="tablewrap"><table><tr><th>Service</th><th>Purpose</th><th>Location</th></tr><tr><td>Supabase</td><td>database, accounts</td><td>EU, Frankfurt</td></tr><tr><td>Vercel</td><td>website delivery, technical logs</td><td>global network</td></tr><tr><td>Google (Gemini)</td><td>drafting questions from material</td><td>Google servers</td></tr></table></div>'],
+['Security','<ul><li>all traffic is encrypted (HTTPS);</li><li>the database is encrypted at rest;</li><li>each teacher sees only their own students, the centre manager sees only overall numbers, and a parent sees only their own child’s report;</li><li>passwords are never stored in plain text;</li><li>in demo mode nothing is sent to a server; data stays in your browser.</li></ul><p>If a data breach happens, we will notify affected centres and users within 72 hours.</p>'],
+['Children’s data','<p>Students are often under 18. Before adding students to EdubbaX, the centre is responsible for informing parents and obtaining any consent required. We provide a sample notice and consent text on request. Students do not create accounts or give an email address.</p>'],
+['How long we keep data','<ul><li>Centre data: while the contract is in force. After it ends, data is kept for 30 days for export and then deleted.</li><li>Waitlist: until the pilot programme ends or you withdraw consent.</li><li>Technical logs: a short period, under the hosting provider’s rules.</li></ul>'],
+['Cookies and browser storage','<p>We do not use advertising or tracking cookies. Browser storage holds only your chosen language, your sign-in session and demo-mode data.</p>'],
+['Your rights','<p>At any time you can ask to:</p><ul><li>find out what data we hold about you;</li><li>correct inaccurate data;</li><li>have data deleted;</li><li>export data (for centres);</li><li>withdraw consent.</li></ul><p>Write to <a href="mailto:edubbax@gmail.com">edubbax@gmail.com</a>. We reply within 30 days at the latest. Requests about a student’s data can also go to the centre, which will pass them to us.</p>'],
+['Changes','<p>If we change this policy, we will publish the new text on this page. For significant changes we will email centres at least 14 days in advance.</p>']
+]}
+};
+edxI18n(T,(l,s)=>{
+ document.getElementById('toc').innerHTML=s.S.map((x,i)=>`<li><a href="#s${i+1}">${x[0]}</a></li>`).join('');
+ document.getElementById('body').innerHTML=s.S.map((x,i)=>`<section id="s${i+1}" style="margin:0"><h2>${i+1}. ${x[0]}</h2>${x[1]}</section>`).join('');
+ document.querySelectorAll('#body a').forEach(a=>a.style.color='var(--gold)');
+});
+</script>
+</body>
+</html>

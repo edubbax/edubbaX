@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EdubbaX · Nümunə hesabat</title>
+<meta name="description" content="EdubbaX nümunə hesabatı: valideyn, müəllim və kurs rəhbəri üçün. Adlar və rəqəmlər nümunədir.">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.banner{background:rgba(227,164,59,.10);border:1px solid rgba(227,164,59,.4);color:#f1d6a6;border-radius:14px;padding:12px 16px;font-size:14.5px;margin-bottom:26px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 26px}
+.tabs button{background:var(--card);border:1px solid var(--line);color:var(--mut);border-radius:999px;padding:10px 18px;font-weight:700;font-size:14.5px;cursor:pointer;font-family:inherit}
+.tabs button[aria-selected=true]{background:var(--gold);color:#1a1400;border-color:var(--gold)}
+.panel[hidden]{display:none}
+.rhead{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-end;margin-bottom:18px}
+.rhead h2{margin:0}
+.rhead .meta{color:var(--mut);font-size:14.5px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.kpi b{display:block;font-family:Georgia,"DejaVu Serif",serif;font-size:30px;color:var(--gold);line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi span{color:var(--mut);font-size:13.5px}
+.kpi em{display:block;font-style:normal;font-size:13px;margin-top:4px;color:var(--ok);font-weight:600}
+.kpi em.bad{color:var(--bad)}
+.two{display:grid;grid-template-columns:1.3fr 1fr;gap:14px;margin-bottom:14px}
+.chart svg{width:100%;height:auto;display:block}
+.chart .ax{stroke:var(--line);stroke-width:1}
+.chart .tgt{stroke:var(--dim);stroke-dasharray:4 4;stroke-width:1}
+.chart text{fill:var(--dim);font-size:11px;font-family:Inter,system-ui,sans-serif}
+.chart .lbl{fill:var(--tx);font-weight:700;font-size:12px}
+.topic{display:grid;grid-template-columns:1fr 120px 46px;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line);font-size:14.5px}
+.topic:first-of-type{border-top:0}
+.topic .bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.topic .bar i{display:block;height:100%;border-radius:99px}
+.topic b{text-align:right;font-variant-numeric:tabular-nums}
+.topic small{display:block;color:var(--dim);font-size:12.5px}
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.tbl th{color:var(--dim);font-weight:600;text-align:left;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;padding:8px 8px;border-bottom:1px solid var(--line)}
+.tbl td{padding:10px 8px;border-bottom:1px solid var(--line);color:var(--tx);font-variant-numeric:tabular-nums}
+.tbl td.n,.tbl th.n{text-align:right}
+.up{color:var(--ok);font-weight:600}.dn{color:var(--bad);font-weight:600}
+.pill{display:inline-block;border-radius:99px;padding:2px 10px;font-size:12.5px;font-weight:700}
+.pill.ok{background:rgba(63,178,127,.14);color:var(--ok)}.pill.bad{background:rgba(224,86,79,.14);color:var(--bad)}.pill.warn{background:rgba(227,164,59,.14);color:var(--warn)}
+.quote{border-left:3px solid var(--gold);padding:4px 0 4px 14px;color:var(--tx);font-family:Georgia,"DejaVu Serif",serif;font-size:17px;line-height:1.45;margin:8px 0 0}
+.loopfix{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px}
+.loopfix .a,.loopfix .b{font-family:Georgia,"DejaVu Serif",serif;font-size:28px;font-weight:700}
+.loopfix .a{color:var(--bad)}.loopfix .b{color:var(--ok)}
+.loopfix span{color:var(--mut);font-size:14px}
+.card h3{font-size:18px;margin-bottom:12px}
+@media(max-width:900px){.kpis{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}}
+@media(max-width:560px){.topic{grid-template-columns:1fr 70px 40px}.tbl .hs{display:none}}
+@media print{.card,.kpi{border-color:#ddd;background:#fff}.kpi b{color:#7a5d00}.banner{color:#6b4a00}.panel[hidden]{display:block!important}.tabs{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" data-l="./" href="./" aria-label="EdubbaX">edubba<b>X</b></a>
+    <div class="topr">
+      <a class="nav-a" data-l="courses.html" href="courses.html" data-t="nCourses"></a>
+      <a class="nav-a on" data-l="sample-report.html" href="sample-report.html" data-t="nSample"></a>
+      <button class="nav-a noprint" type="button" onclick="window.print()" style="background:none;cursor:pointer;font-family:inherit" data-t="print"></button>
+      <div class="lang" role="group" aria-label="Language"><button type="button" data-l="az">AZ</button><button type="button" data-l="tr">TR</button><button type="button" data-l="en">EN</button></div>
+    </div>
+  </header>
+
+  <p class="eyebrow" data-t="eb"></p>
+  <h1 data-t="h"></h1>
+  <p class="lead" data-t="p"></p>
+  <div class="tabs" role="tablist">
+    <button role="tab" id="tb-parent" aria-controls="parent" aria-selected="true" data-t="tab1"></button>
+    <button role="tab" id="tb-teacher" aria-controls="teacher" aria-selected="false" data-t="tab2"></button>
+    <button role="tab" id="tb-center" aria-controls="center" aria-selected="false" data-t="tab3"></button>
+  </div>
+  <div class="banner" data-t="banner"></div>
+
+  <!-- PARENT -->
+  <section class="panel" id="parent" role="tabpanel" aria-labelledby="tb-parent">
+    <div class="rhead"><div><p class="eyebrow" data-t="pEb"></p><h2>Nigar Həsənova</h2></div><div class="meta" data-t="pMeta"></div></div>
+    <div class="kpis">
+      <div class="kpi"><b>67%</b><span data-t="kAvg"></span><em data-t="kAvgD"></em></div>
+      <div class="kpi"><b>11/12</b><span data-t="kAtt"></span></div>
+      <div class="kpi"><b>23</b><span data-t="kChecks"></span></div>
+      <div class="kpi"><b>3</b><span data-t="kFixed"></span><em data-t="kFixedD"></em></div>
+    </div>
+    <div class="two">
+      <div class="card chart"><h3 data-t="trend"></h3><div id="ch-student"></div></div>
+      <div class="card"><h3 data-t="topics"></h3><div id="tp-student"></div></div>
+    </div>
+    <div class="two">
+      <div class="card"><h3 data-t="loopH"></h3><p data-t="loopP"></p>
+        <div class="loopfix"><span class="a">48%</span><span>→</span><span class="b">71%</span><span data-t="loopS"></span></div></div>
+      <div class="card"><h3 data-t="noteH"></h3><p class="quote" data-t="noteP"></p><p class="note" data-t="noteBy"></p></div>
+    </div>
+    <div class="card"><h3 data-t="payH"></h3><div id="pay-student"></div><p class="note" data-t="payNote"></p></div>
+  </section>
+
+  <!-- TEACHER -->
+  <section class="panel" id="teacher" role="tabpanel" aria-labelledby="tb-teacher" hidden>
+    <div class="rhead"><div><p class="eyebrow" data-t="tEb"></p><h2 data-t="tH"></h2></div><div class="meta" data-t="tMeta"></div></div>
+    <div class="kpis">
+      <div class="kpi"><b>58%</b><span data-t="kFirst"></span></div>
+      <div class="kpi"><b>74%</b><span data-t="kRe"></span><em data-t="kReD"></em></div>
+      <div class="kpi"><b>31</b><span data-t="kMli"></span></div>
+      <div class="kpi"><b>2</b><span data-t="kRisk"></span><em class="bad" data-t="kRiskD"></em></div>
+    </div>
+    <div class="two">
+      <div class="card chart"><h3 data-t="qH"></h3><div id="ch-q"></div></div>
+      <div class="card"><h3 data-t="riskH"></h3><div id="risk"></div></div>
+    </div>
+    <div class="card" style="overflow-x:auto"><h3 data-t="stH"></h3><table class="tbl" id="tbl-st"></table></div>
+  </section>
+
+  <!-- CENTER -->
+  <section class="panel" id="center" role="tabpanel" aria-labelledby="tb-center" hidden>
+    <div class="rhead"><div><p class="eyebrow" data-t="cEb"></p><h2 data-t="cH"></h2></div><div class="meta" data-t="cMeta"></div></div>
+    <div class="kpis">
+      <div class="kpi"><b>86</b><span data-t="kAct"></span><em data-t="kActD"></em></div>
+      <div class="kpi"><b>+13</b><span data-t="kGain"></span></div>
+      <div class="kpi"><b>94%</b><span data-t="kAttC"></span></div>
+      <div class="kpi"><b>840 AZN</b><span data-t="kDebt"></span><em class="bad" data-t="kDebtD"></em></div>
+    </div>
+    <div class="two">
+      <div class="card chart"><h3 data-t="grH"></h3><div id="ch-groups"></div></div>
+      <div class="card"><h3 data-t="debtH"></h3><div id="debt"></div></div>
+    </div>
+    <div class="card" style="overflow-x:auto"><h3 data-t="teH"></h3><table class="tbl" id="tbl-te"></table></div>
+  </section>
+
+  <div class="final" style="margin-top:56px">
+    <div><h2 data-t="zH"></h2><p data-t="zP"></p></div>
+    <div class="cta" style="margin:0"><a class="btn gold" data-l="waitlist.html" href="waitlist.html" data-t="ctaPilot"></a><a class="btn" data-l="courses.html#pricing" href="courses.html#pricing" data-t="nPricing"></a></div>
+  </div>
+
+  <footer class="foot">
+    <span>© 2026 EdubbaX · Making Learning Measurable</span>
+    <nav><a data-l="./" href="./" data-t="nDemo"></a><a data-l="courses.html" href="courses.html" data-t="nCourses"></a><a data-l="privacy.html" href="privacy.html" data-t="nPrivacy"></a><a data-l="terms.html" href="terms.html" data-t="nTerms"></a></nav>
+  </footer>
+</div>
+<script src="assets/i18n.js"></script>
+<script>
+/* ---- sample data (fictional) ---- */
+const D={
+ trend:[52,55,49,61,58,66,70,74],
+ topics:[['tp1',84],['tp2',76],['tp3',71,48],['tp4',59]],
+ pay:[['m9','ok'],['m10','ok'],['m11','warn']],
+ qs:[['Q1',88],['Q2',81],['Q3',43],['Q4',67],['Q5',52],['Q6',90]],
+ risk:[['Elvin Qasımov',39,'8/12','r1'],['Fərid Məmmədli',47,'10/12','r2']],
+ st:[['Aysel Mirzəyeva',91,6,'12/12'],['Murad Əliyev',82,9,'12/12'],['Leyla Rzayeva',76,14,'11/12'],['Nigar Həsənova',67,22,'11/12'],['Tural İsmayılov',71,11,'12/12'],['Səbinə Quliyeva',73,8,'10/12'],['Fərid Məmmədli',47,-3,'10/12'],['Elvin Qasımov',39,-6,'8/12']],
+ groups:[['9B',58,74],['10A',61,73],['11 Fizika',55,67],['İngilis B1',63,72],['8A',52,69],['11 Kimya',60,74]],
+ debt:[['Elvin Qasımov','9B',120],['Kənan Abbasov','10A',120],['Röya Nəsirova','8A',240],['Zaur Hüseynov','11 Fizika',120],['Aynur Səfərova','İngilis B1',120],['Orxan Vəliyev','10A',120]],
+ te:[['Aytən Məmmədova','sMath',3,28,16,96],['Rauf Səfərov','sPhys',1,13,12,92],['Günel Abdullayeva','sEng',1,27,9,95],['Kamran Bağırov','sChem',1,18,14,93]]
+};
+const T={
+az:{title:'EdubbaX · Nümunə hesabat',nCourses:'Kurslar üçün',nSample:'Nümunə hesabat',nPricing:'Qiymətlər',nDemo:'Demoya bax',nPrivacy:'Məxfilik',nTerms:'İstifadə şərtləri',print:'Çap et / PDF',ctaPilot:'Pilot üçün müraciət et',
+eb:'Nümunə hesabat',h:'EdubbaX hesabatları belə görünür.',p:'Bir ay ərzində bir riyaziyyat qrupunun məlumatı əsasında üç hesabat: valideyn, müəllim və kurs rəhbəri üçün.',
+tab1:'Valideyn hesabatı',tab2:'Müəllim hesabatı',tab3:'Kurs rəhbəri',banner:'Bu nümunədir: adlar, qruplar və rəqəmlər uydurulub və real şəxslərə aid deyil.',
+pEb:'Valideyn hesabatı · Oktyabr 2026',pMeta:'Bilik Kursu (nümunə) · 9B qrupu · Riyaziyyat · Müəllim: Aytən Məmmədova',
+kAvg:'son 4 həftənin orta nəticəsi',kAvgD:'+13 bənd, sentyabra görə',kAtt:'dərsdə iştirak',kChecks:'dərs içi yoxlama',kFixed:'mövzu bağlanıb',kFixedD:'təkrar ölçmə ilə sübut olunub',
+trend:'Həftəlik nəticələr',wk:'H',target:'Hədəf 70%',topics:'Mövzular üzrə',
+tp1:'Xətti tənliklər',tp2:'Faizlər',tp3:'Kəsrlərin bölünməsi',tp4:'Üçbucaqlar',fixed:'əvvəl {a}%, təkrar izahdan sonra',
+loopH:'Bu ay bağlanan boşluq',loopP:'14 oktyabr dərsində yoxlama Nigarın kəsrlərin bölünməsini başa düşmədiyini göstərdi. Müəllim həmin dərsdə 5 dəqiqəlik təkrar izah etdi.',loopS:'ilk yoxlama → təkrar yoxlama',
+noteH:'Müəllimin qeydi',noteP:'Nigar bu ay xeyli irəlilədi, xüsusən tənliklərdə. Həndəsə mövzusunda evdə gündə 10 dəqiqə məsələ həll etməsi faydalı olar.',noteBy:'Aytən Məmmədova, riyaziyyat müəllimi',
+payH:'Ödənişlər',m9:'Sentyabr',m10:'Oktyabr',m11:'Noyabr',ok:'Ödənilib',warn:'Gözlənilir',bad:'Gecikir',payNote:'EdubbaX ödəniş qəbul etmir; bu bölmə kursun öz qeydini göstərir.',
+tEb:'Müəllim hesabatı · Oktyabr 2026',tH:'9B qrupu · Riyaziyyat',tMeta:'14 şagird · 12 dərs · 23 yoxlama',
+kFirst:'ilk ölçmə ortalaması',kRe:'təkrar ölçmə ortalaması',kReD:'+16 bənd düzəlişdən sonra',kMli:'sübut olunmuş düzəliş (MLI)',kRisk:'diqqət tələb edən şagird',kRiskD:'nəticə aşağı düşür',
+qH:'Son yoxlama: suallar üzrə düzgün cavab',riskH:'Diqqət tələb edənlər',r1:'Davamiyyət aşağıdır, 3 dərs buraxıb',r2:'Kəsrlərdə çətinlik davam edir',
+stH:'Şagirdlər üzrə',cN:'Şagird',cA:'Orta',cC:'Dəyişmə',cT:'Davamiyyət',
+cEb:'Kurs rəhbəri xülasəsi · Oktyabr 2026',cH:'Bilik Kursu (nümunə)',cMeta:'6 qrup · 4 müəllim',
+kAct:'aktiv şagird',kActD:'+9 nəfər, sentyabra görə',kGain:'bənd orta irəliləyiş (ilk → təkrar ölçmə)',kAttC:'orta davamiyyət',kDebt:'ödənilməmiş məbləğ',kDebtD:'6 şagird',
+grH:'Qruplar: ilk ölçmə və təkrar ölçmə',g1:'İlk ölçmə',g2:'Təkrar ölçmə',debtH:'Ödəniş borcları',
+teH:'Müəllimlər',tN:'Müəllim',tS:'Fənn',tG:'Qrup',tSt:'Şagird',tGain:'İrəliləyiş',tAtt:'Davamiyyət',sMath:'Riyaziyyat',sPhys:'Fizika',sEng:'İngilis dili',sChem:'Kimya',pp:'bənd',
+zH:'Bu hesabatları öz kursunuzda görün.',zP:'Pilot dövründə ilk hesabatlar birinci həftənin sonunda hazır olur.'},
+
+tr:{title:'EdubbaX · Örnek rapor',nCourses:'Kurslar için',nSample:'Örnek rapor',nPricing:'Fiyatlar',nDemo:'Demoyu gör',nPrivacy:'Gizlilik',nTerms:'Kullanım şartları',print:'Yazdır / PDF',ctaPilot:'Pilot için başvur',
+eb:'Örnek rapor',h:'EdubbaX raporları böyle görünür.',p:'Bir matematik grubunun bir aylık verisine dayanan üç rapor: veli, öğretmen ve kurs yöneticisi için.',
+tab1:'Veli raporu',tab2:'Öğretmen raporu',tab3:'Kurs yöneticisi',banner:'Bu bir örnektir: isimler, gruplar ve sayılar uydurmadır ve gerçek kişilere ait değildir.',
+pEb:'Veli raporu · Ekim 2026',pMeta:'Bilik Kursu (örnek) · 9B grubu · Matematik · Öğretmen: Aytən Məmmədova',
+kAvg:'son 4 haftanın ortalaması',kAvgD:'eylüle göre +13 puan',kAtt:'derse katılım',kChecks:'ders içi kontrol',kFixed:'konu kapandı',kFixedD:'tekrar ölçümle kanıtlandı',
+trend:'Haftalık sonuçlar',wk:'H',target:'Hedef %70',topics:'Konulara göre',
+tp1:'Doğrusal denklemler',tp2:'Yüzdeler',tp3:'Kesirlerde bölme',tp4:'Üçgenler',fixed:'önce %{a}, tekrar anlatımdan sonra',
+loopH:'Bu ay kapanan boşluk',loopP:'14 Ekim dersindeki kontrol, Nigar’ın kesirlerde bölmeyi anlamadığını gösterdi. Öğretmen aynı derste 5 dakikalık bir tekrar yaptı.',loopS:'ilk kontrol → tekrar kontrol',
+noteH:'Öğretmenin notu',noteP:'Nigar bu ay özellikle denklemlerde çok ilerledi. Geometri için evde günde 10 dakika problem çözmesi faydalı olur.',noteBy:'Aytən Məmmədova, matematik öğretmeni',
+payH:'Ödemeler',m9:'Eylül',m10:'Ekim',m11:'Kasım',ok:'Ödendi',warn:'Bekleniyor',bad:'Gecikti',payNote:'EdubbaX ödeme almaz; bu bölüm kursun kendi kaydını gösterir.',
+tEb:'Öğretmen raporu · Ekim 2026',tH:'9B grubu · Matematik',tMeta:'14 öğrenci · 12 ders · 23 kontrol',
+kFirst:'ilk ölçüm ortalaması',kRe:'tekrar ölçüm ortalaması',kReD:'düzeltmeden sonra +16 puan',kMli:'kanıtlanmış düzeltme (MLI)',kRisk:'dikkat gereken öğrenci',kRiskD:'sonuç düşüyor',
+qH:'Son kontrol: sorulara göre doğru cevap',riskH:'Dikkat gerekenler',r1:'Devamsızlık yüksek, 3 ders kaçırdı',r2:'Kesirlerde zorluk sürüyor',
+stH:'Öğrencilere göre',cN:'Öğrenci',cA:'Ortalama',cC:'Değişim',cT:'Devam',
+cEb:'Kurs yöneticisi özeti · Ekim 2026',cH:'Bilik Kursu (örnek)',cMeta:'6 grup · 4 öğretmen',
+kAct:'aktif öğrenci',kActD:'eylüle göre +9 kişi',kGain:'puan ortalama ilerleme (ilk → tekrar ölçüm)',kAttC:'ortalama devam',kDebt:'ödenmemiş tutar',kDebtD:'6 öğrenci',
+grH:'Gruplar: ilk ölçüm ve tekrar ölçüm',g1:'İlk ölçüm',g2:'Tekrar ölçüm',debtH:'Ödeme borçları',
+teH:'Öğretmenler',tN:'Öğretmen',tS:'Ders',tG:'Grup',tSt:'Öğrenci',tGain:'İlerleme',tAtt:'Devam',sMath:'Matematik',sPhys:'Fizik',sEng:'İngilizce',sChem:'Kimya',pp:'puan',
+zH:'Bu raporları kendi kursunuzda görün.',zP:'Pilot sırasında ilk raporlar birinci haftanın sonunda hazır olur.'},
+
+en:{title:'EdubbaX · Sample report',nCourses:'For centres',nSample:'Sample report',nPricing:'Pricing',nDemo:'See the demo',nPrivacy:'Privacy',nTerms:'Terms of use',print:'Print / PDF',ctaPilot:'Apply for the pilot',
+eb:'Sample report',h:'This is what EdubbaX reports look like.',p:'Three reports built from one month of data for one maths group: for the parent, the teacher and the centre manager.',
+tab1:'Parent report',tab2:'Teacher report',tab3:'Centre manager',banner:'This is a sample: names, groups and figures are made up and do not belong to real people.',
+pEb:'Parent report · October 2026',pMeta:'Bilik Centre (sample) · Group 9B · Maths · Teacher: Aytən Məmmədova',
+kAvg:'average of the last 4 weeks',kAvgD:'+13 points vs September',kAtt:'lessons attended',kChecks:'in-lesson checks',kFixed:'topics closed',kFixedD:'proven by a re-check',
+trend:'Weekly results',wk:'W',target:'Target 70%',topics:'By topic',
+tp1:'Linear equations',tp2:'Percentages',tp3:'Dividing fractions',tp4:'Triangles',fixed:'{a}% before, after re-explaining',
+loopH:'A gap closed this month',loopP:'On 14 October a check showed Nigar had not understood dividing fractions. The teacher re-explained it for 5 minutes in the same lesson.',loopS:'first check → re-check',
+noteH:'Teacher’s note',noteP:'Nigar made strong progress this month, especially in equations. Ten minutes of geometry problems a day at home would help.',noteBy:'Aytən Məmmədova, maths teacher',
+payH:'Payments',m9:'September',m10:'October',m11:'November',ok:'Paid',warn:'Pending',bad:'Late',payNote:'EdubbaX does not take payments; this section shows the centre’s own record.',
+tEb:'Teacher report · October 2026',tH:'Group 9B · Maths',tMeta:'14 students · 12 lessons · 23 checks',
+kFirst:'first-check average',kRe:'re-check average',kReD:'+16 points after the fix',kMli:'proven fixes (MLI)',kRisk:'students who need attention',kRiskD:'results are dropping',
+qH:'Latest check: correct answers by question',riskH:'Needs attention',r1:'Low attendance, missed 3 lessons',r2:'Still struggling with fractions',
+stH:'By student',cN:'Student',cA:'Average',cC:'Change',cT:'Attendance',
+cEb:'Centre manager summary · October 2026',cH:'Bilik Centre (sample)',cMeta:'6 groups · 4 teachers',
+kAct:'active students',kActD:'+9 vs September',kGain:'points average gain (first → re-check)',kAttC:'average attendance',kDebt:'unpaid amount',kDebtD:'6 students',
+grH:'Groups: first check vs re-check',g1:'First check',g2:'Re-check',debtH:'Outstanding payments',
+teH:'Teachers',tN:'Teacher',tS:'Subject',tG:'Groups',tSt:'Students',tGain:'Gain',tAtt:'Attendance',sMath:'Maths',sPhys:'Physics',sEng:'English',sChem:'Chemistry',pp:'pts',
+zH:'See these reports for your own centre.',zP:'During the pilot the first reports are ready at the end of week one.'}
+};
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const col=p=>p>=70?css('--ok'):p>=55?css('--warn'):css('--bad');
+function lineChart(el,data,s){
+ const W=560,H=230,l=34,r=14,t=14,b=28,x=i=>l+i*(W-l-r)/(data.length-1),y=v=>t+(100-v)*(H-t-b)/100;
+ let g='';[0,25,50,75,100].forEach(v=>{g+=`<line class="ax" x1="${l}" x2="${W-r}" y1="${y(v)}" y2="${y(v)}"/><text x="${l-6}" y="${y(v)+4}" text-anchor="end">${v}</text>`});
+ g+=`<line class="tgt" x1="${l}" x2="${W-r}" y1="${y(70)}" y2="${y(70)}"/><text x="${l+6}" y="${y(70)-6}">${s.target}</text>`;
+ const pts=data.map((v,i)=>x(i)+','+y(v)).join(' ');
+ g+=`<polyline points="${pts}" fill="none" stroke="${css('--gold')}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`;
+ data.forEach((v,i)=>{g+=`<circle cx="${x(i)}" cy="${y(v)}" r="4" fill="${css('--gold')}"/><text x="${x(i)}" y="${H-8}" text-anchor="middle">${s.wk}${i+1}</text>`});
+ const L=data.length-1;g+=`<text class="lbl" x="${x(L)-8}" y="${y(data[L])-10}" text-anchor="end">${data[L]}%</text>`;
+ el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${s.trend}: ${data.join(', ')}%">${g}</svg>`;
+}
+function barChart(el,data,s,aria){
+ const W=560,H=220,l=34,r=10,t=16,b=28,n=data.length,bw=(W-l-r)/n,y=v=>t+(100-v)*(H-t-b)/100;
+ let g='';[0,50,100].forEach(v=>{g+=`<line class="ax" x1="${l}" x2="${W-r}" y1="${y(v)}" y2="${y(v)}"/><text x="${l-6}" y="${y(v)+4}" text-anchor="end">${v}</text>`});
+ data.forEach((d,i)=>{const X=l+i*bw+bw*.22,w=bw*.56;g+=`<rect x="${X}" y="${y(d[1])}" width="${w}" height="${y(0)-y(d[1])}" rx="5" fill="${col(d[1])}"/><text class="lbl" x="${X+w/2}" y="${y(d[1])-5}" text-anchor="middle">${d[1]}%</text><text x="${X+w/2}" y="${H-8}" text-anchor="middle">${d[0]}</text>`});
+ el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${aria}">${g}</svg>`;
+}
+function pairChart(el,data,s){
+ const W=560,H=240,l=34,r=10,t=16,b=44,n=data.length,bw=(W-l-r)/n,y=v=>t+(100-v)*(H-t-b)/100;
+ let g='';[0,50,100].forEach(v=>{g+=`<line class="ax" x1="${l}" x2="${W-r}" y1="${y(v)}" y2="${y(v)}"/><text x="${l-6}" y="${y(v)+4}" text-anchor="end">${v}</text>`});
+ data.forEach((d,i)=>{const X=l+i*bw+bw*.14,w=bw*.34;
+  g+=`<rect x="${X}" y="${y(d[1])}" width="${w}" height="${y(0)-y(d[1])}" rx="4" fill="${css('--dim')}"/><rect x="${X+w+3}" y="${y(d[2])}" width="${w}" height="${y(0)-y(d[2])}" rx="4" fill="${css('--gold')}"/><text class="lbl" x="${X+w+3+w/2}" y="${y(d[2])-5}" text-anchor="middle">${d[2]}</text><text x="${X+w+1}" y="${H-26}" text-anchor="middle">${d[0]}</text>`});
+ g+=`<rect x="${l}" y="${H-14}" width="10" height="10" rx="2" fill="${css('--dim')}"/><text x="${l+15}" y="${H-5}">${s.g1}</text><rect x="${l+120}" y="${H-14}" width="10" height="10" rx="2" fill="${css('--gold')}"/><text x="${l+135}" y="${H-5}">${s.g2}</text>`;
+ el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${s.grH}">${g}</svg>`;
+}
+const pill=(k,s)=>`<span class="pill ${k}">${s[k]}</span>`;
+function render(l,s){
+ lineChart(document.getElementById('ch-student'),D.trend,s);
+ document.getElementById('tp-student').innerHTML=D.topics.map(([k,v,a])=>`<div class="topic"><span>${s[k]}${a?`<small>${s.fixed.replace('{a}',a)}</small>`:''}</span><span class="bar"><i style="width:${v}%;background:${col(v)}"></i></span><b>${v}%</b></div>`).join('');
+ document.getElementById('pay-student').innerHTML=D.pay.map(([m,k])=>`<div class="topic" style="grid-template-columns:1fr auto"><span>${s[m]} · 120 AZN</span>${pill(k,s)}</div>`).join('');
+ barChart(document.getElementById('ch-q'),D.qs,s,s.qH);
+ document.getElementById('risk').innerHTML=D.risk.map(([n,a,t,r])=>`<div class="topic" style="grid-template-columns:1fr auto"><span>${n}<small>${s[r]} · ${t}</small></span><b style="color:${col(a)}">${a}%</b></div>`).join('');
+ document.getElementById('tbl-st').innerHTML=`<thead><tr><th>${s.cN}</th><th class="n">${s.cA}</th><th class="n">${s.cC}</th><th class="n hs">${s.cT}</th></tr></thead><tbody>`+D.st.map(([n,a,c,t])=>`<tr><td>${n}</td><td class="n" style="color:${col(a)};font-weight:700">${a}%</td><td class="n ${c>=0?'up':'dn'}">${c>0?'+':''}${c}</td><td class="n hs">${t}</td></tr>`).join('')+'</tbody>';
+ pairChart(document.getElementById('ch-groups'),D.groups,s);
+ document.getElementById('debt').innerHTML=D.debt.map(([n,g,v])=>`<div class="topic" style="grid-template-columns:1fr auto"><span>${n}<small>${g}</small></span><b>${v} AZN</b></div>`).join('');
+ document.getElementById('tbl-te').innerHTML=`<thead><tr><th>${s.tN}</th><th class="hs">${s.tS}</th><th class="n hs">${s.tG}</th><th class="n">${s.tSt}</th><th class="n">${s.tGain}</th><th class="n hs">${s.tAtt}</th></tr></thead><tbody>`+D.te.map(([n,sj,g,st,ga,at])=>`<tr><td>${n}</td><td class="hs">${s[sj]}</td><td class="n hs">${g}</td><td class="n">${st}</td><td class="n up">+${ga} ${s.pp}</td><td class="n hs">${at}%</td></tr>`).join('')+'</tbody>';
+}
+edxI18n(T,render);
+const tabs=[...document.querySelectorAll('[role=tab]')];
+function show(id){tabs.forEach(b=>{const on=b.getAttribute('aria-controls')===id;b.setAttribute('aria-selected',on);document.getElementById(b.getAttribute('aria-controls')).hidden=!on});try{history.replaceState(null,'',location.pathname+location.search+'#'+id)}catch(e){}}
+tabs.forEach(b=>b.addEventListener('click',()=>show(b.getAttribute('aria-controls'))));
+const h=location.hash.slice(1);if(['parent','teacher','center'].includes(h))show(h);
+</script>
+</body>
+</html>
