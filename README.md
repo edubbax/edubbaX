@@ -82,3 +82,10 @@ Static pages share one header, footer and SEO block. After editing page text or 
 2. Serve the folder with clean URLs on `localhost:8766` and run `node tools/bake.js` — pre-renders the Azerbaijani text into the HTML so search engines see it without JavaScript.
 
 When the site moves to its own domain, change `SITE` in `tools/build.py` and in `assets/i18n.js`, then repeat both steps.
+
+## Açıq profil (public teacher / course profiles)
+- App section: `tools/app/public-profile.js` + `.css`, injected into `index.html` with `python3 tools/app/inject.py` (re-run after editing).
+- Public page: `api/profile.js` (Vercel function), served at `/t/<slug>`; sitemap at `/profiles-sitemap.xml` (`api/profiles-sitemap.js`).
+- Database (Supabase): `profile_requests`, `profiles`, `profile_leads`, `profile_payments`, `profile_admins`; RPCs `profile_*`, `public_profile*`; storage bucket `profile-media`.
+- Flow: verification request → admin approves in "Profil istəkləri" → owner fills profile → payment (manual "Ödəniş alındı" until a payment gateway is connected) → public for 1 year.
+- Prices: teacher 9.99 AZN/year (AZ) or $9.99 abroad; course 59.99 AZN/year or $59.99 abroad (set on approval from the request's country).

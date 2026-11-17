@@ -32,5 +32,15 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/t/:slug",
+      "destination": "/api/profile?slug=:slug"
+    },
+    {
+      "source": "/profiles-sitemap.xml",
+      "destination": "/api/profiles-sitemap"
+    }
   ]
 }

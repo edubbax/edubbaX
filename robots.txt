@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /404
+Disallow: /api/
 
 Sitemap: https://edubbax.vercel.app/sitemap.xml
+Sitemap: https://edubbax.vercel.app/profiles-sitemap.xml

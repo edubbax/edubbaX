@@ -196,5 +196,5 @@ if __name__ == '__main__':
         pri = {'/': '1.0', '/courses': '0.9', '/sample-report': '0.8', '/waitlist': '0.8', '/investors': '0.6'}.get(c['path'], '0.3')
         urls.append(f'  <url><loc>{SITE + c["path"]}</loc><lastmod>{UPDATED}</lastmod><priority>{pri}</priority>{alts}</url>')
     (ROOT / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + '\n'.join(urls) + '\n</urlset>\n')
-    (ROOT / 'robots.txt').write_text(f'User-agent: *\nAllow: /\nDisallow: /404\n\nSitemap: {SITE}/sitemap.xml\n')
+    (ROOT / 'robots.txt').write_text(f'User-agent: *\nAllow: /\nDisallow: /404\nDisallow: /api/\n\nSitemap: {SITE}/sitemap.xml\nSitemap: {SITE}/profiles-sitemap.xml\n')
     print('sitemap + robots')
