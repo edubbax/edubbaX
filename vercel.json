@@ -42,5 +42,8 @@
       "source": "/profiles-sitemap.xml",
       "destination": "/api/profiles-sitemap"
     }
+  ],
+  "regions": [
+    "fra1"
   ]
 }

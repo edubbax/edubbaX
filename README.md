@@ -89,3 +89,9 @@ When the site moves to its own domain, change `SITE` in `tools/build.py` and in 
 - Database (Supabase): `profile_requests`, `profiles`, `profile_leads`, `profile_payments`, `profile_admins`; RPCs `profile_*`, `public_profile*`; storage bucket `profile-media`.
 - Flow: verification request → admin approves in "Profil istəkləri" → owner fills profile → payment (manual "Ödəniş alındı" until a payment gateway is connected) → public for 1 year.
 - Prices: teacher 9.99 AZN/year (AZ) or $9.99 abroad; course 59.99 AZN/year or $59.99 abroad (set on approval from the request's country).
+
+### Themes and notifications
+- `lib/profile-render.js` renders the public page (8 themes × any colour × 4 fonts × light/dark/auto); used by `api/profile.js` and by the app's live preview.
+- Notifications: DB triggers queue events in `private.notify_queue` and wake the Supabase function `notify` (pg_net); a daily cron sends expiry reminders.
+  Secrets to set in Supabase → Edge Functions → Secrets: `TELEGRAM_BOT_TOKEN` (from @BotFather), `RESEND_API_KEY` (resend.com), optional `EMAIL_FROM`.
+  Then press "Qurulumu yoxla" in the app (Profil istəkləri). Function sources: `supabase/functions/notify`, `supabase/functions/telegram-bot`.

@@ -10,7 +10,7 @@ const PP_PRICE = { teacher: 9.99, course: 59.99 };
 const PP_SITE = "https://edubbax.vercel.app";
 const PP_MAIL = "edubbax@gmail.com";
 const PP_COUNTRIES = ["AZ", "TR", "GE", "RU", "KZ", "UZ", "KG", "TM", "UA", "AE", "SA", "QA", "IQ", "IR", "DE", "GB", "US", "XX"];
-const PP_ACCENTS = ["#c9a24a", "#2f6fb2", "#1e8a5a", "#b23a48", "#6b4bb8", "#1f2937"];
+const PP_ACCENTS = ["#c9a24a", "#2f6fb2", "#0e7490", "#1e8a5a", "#65a30d", "#e0662b", "#b23a48", "#db2777", "#6b4bb8", "#7a2e2e", "#1f2937", "#f2d544"];
 
 function ppMoney(a, cur) { const v = Number(a || 0).toFixed(2); return cur === "USD" ? `$${v}` : `${v} AZN`; }
 function ppPrice(kind, country) { return ppMoney(PP_PRICE[kind] || PP_PRICE.teacher, (country || "AZ") === "AZ" ? "AZN" : "USD"); }
@@ -39,6 +39,7 @@ Object.assign(SupabaseBackend.prototype, {
   },
   async ppRequest(p) { return this._rpc("profile_request_submit", { p }); },
   async ppSave(p) { return this._rpc("profile_save", { p }); },
+  async ppSaveLook(p) { return this._rpc("profile_save_look", { p }); },
   async ppUpload(blob) {
     const uid = await this._uid();
     const path = `${uid}/${Date.now().toString(36)}.jpg`;
@@ -65,19 +66,21 @@ function ppDraftFrom(p) {
     display_name: p.display_name || "", headline: p.headline || "", slug: p.slug || "", city: p.city || "",
     bio: p.bio || "", experience: p.experience || "", education: p.education || "", subjects: (p.subjects || []).join(", "),
     price_note: p.price_note || "", groups: (p.groups || []).map(x => ({ ...x })), branches: (p.branches || []).map(x => ({ ...x })), team: (p.team || []).map(x => ({ ...x })),
-    contacts: Object.fromEntries(keys.map(k => [k, c[k] || ""])), accent: p.accent || PP_ACCENTS[0],
+    contacts: Object.fromEntries(keys.map(k => [k, c[k] || ""])), accent: p.accent || PP_ACCENTS[0], theme: p.theme || "zirve", font: p.font || "elegant", mode: p.mode || "auto",
     published: p.published !== false, consent: !!p.consent, image_path: p.image_path || "",
   };
 }
 async function ppLoad(force) {
   if (!api || api.mode !== "cloud") { S.pp.loaded = true; return; }
-  if (!S.teacher || S.pp.loading) return;
+  if (!S.teacher) return;
+  if (S.pp.loading) { S.pp.again = S.pp.again || (force ? "force" : true); return; }
   S.pp.loading = true;
   try {
     const st = await api.ppState();
     Object.assign(S.pp, st);
     if (!S.pp.draft || force) S.pp.draft = ppDraftFrom(st.profile);
     if (S.pp.admin == null) S.pp.admin = await api.ppIsAdmin().catch(() => false);
+    await ppLoadNotify();
     if (S.pp.admin && S.route === "preq") {
       const [r, p] = await Promise.all([api.ppAdminRequests(), api.ppAdminProfiles()]);
       S.pp.adminReqs = r; S.pp.adminProfiles = p; S.pp.pending = r.filter(x => x.status === "pending").length;
@@ -85,6 +88,7 @@ async function ppLoad(force) {
   } catch (e) { console.error(e); if (S.pp.adminReqs == null) S.pp.adminReqs = []; if (S.pp.adminProfiles == null) S.pp.adminProfiles = []; }
   S.pp.loading = false; S.pp.loaded = true;
   render(true);
+  if (S.pp.again) { const f = S.pp.again === "force"; S.pp.again = false; ppLoad(f); }
 }
 /* Admin notification: badge in the menu and a toast when a new request arrives. */
 async function ppPoll() {
@@ -118,10 +122,10 @@ function pubProfileView() {
   if (!S.pp.loaded) { ppLoad(); return loadingView(); }
   const P = S.pp.profile, last = S.pp.requests[0];
   if (!P) {
-    if (last && last.status === "pending") return ppHead() + ppPendingCard(last) + ppIntro();
+    if (last && last.status === "pending") return ppHead() + ppPendingCard(last) + `<div class="grid-2 pp-top">${ppNotifyPanel()}${ppIntro()}</div>`;
     return ppHead() + (last && last.status === "rejected" ? ppRejectedCard(last) : "") + `<div class="grid-2 pp-top">${ppRequestForm()}${ppIntro()}</div>`;
   }
-  return ppHead() + ppStatusCard(P) + ppEditor(P) + ppLeadsPanel();
+  return ppHead() + ppStatusCard(P) + ppEditor(P) + `<div class="grid-2 pp-top">${ppLeadsPanel()}${ppNotifyPanel()}</div>`;
 }
 function ppIntro() {
   return `<div class="panel pp-intro"><h3>${I("eye")}${tx("pp.introTitle")}</h3>
@@ -198,6 +202,7 @@ function ppEditor(P) {
   const f = (key, lbl, ml, extra = "") => `<label class="fld"><span>${tx(lbl)}</span><input data-pp="${key}" value="${esc(key.split(".").reduce((o, k) => o[k], d) || "")}" maxlength="${ml}" ${extra}></label>`;
   const ta = (key, lbl, ml, rows = 4, hint = "", ph = "") => `<label class="fld"><span>${tx(lbl)}</span><textarea data-pp="${key}" rows="${rows}" maxlength="${ml}" ${ph ? `placeholder="${esc(ph)}"` : ""}>${esc(d[key] || "")}</textarea>${hint ? `<small>${hint}</small>` : ""}</label>`;
   return `<form id="pp-form" class="pp-form" novalidate>
+  ${ppDesignPanel(P)}
   <div class="grid-2">
     <div class="panel form"><h3>${I("user")}${tx("pp.secMain")}</h3>
       <div class="pp-img-row">
@@ -234,9 +239,7 @@ function ppEditor(P) {
       <div class="row-2">${f("contacts.youtube", "pp.youtube", 200, 'type="url" placeholder="https://youtube.com/@..."')}${f("contacts.telegram", "pp.telegram", 60, `placeholder="${tx("pp.handleHint")}"`)}</div>
       ${f("contacts.tiktok", "pp.tiktok", 60, `placeholder="${tx("pp.handleHint")}"`)}
     </div>
-    <div class="panel form"><h3>${I("sun")}${tx("pp.secLook")}</h3>
-      <fieldset class="fld"><legend>${tx("pp.accent")}</legend><div class="pp-sw">${PP_ACCENTS.map(c => `<label style="--c:${c}"><input type="radio" name="pp-acc" data-pp="accent" value="${c}" ${d.accent.toLowerCase() === c ? "checked" : ""}><i></i></label>`).join("")}
-        <label class="pp-sw-c"><input type="color" data-pp="accent" value="${esc(d.accent)}" aria-label="${tx("pp.accent")}"></label></div></fieldset>
+    <div class="panel form"><h3>${I("check")}${tx("pp.secVisible")}</h3>
       <label class="check"><input type="checkbox" data-pp="published" ${d.published ? "checked" : ""}><span><b>${tx("pp.published")}</b><small>${tx("pp.publishedHint")}</small></span></label>
       <label class="check"><input type="checkbox" data-pp="consent" ${d.consent ? "checked" : ""}><span>${tx("pp.consent")}</span></label>
       <p class="small muted">${tx("pp.noStudents")}</p>
@@ -249,7 +252,7 @@ function ppLeadsPanel() {
   const L = S.pp.leads || [];
   const wa = (p) => `https://wa.me/${String(p).replace(/\D/g, "")}`;
   return `<div class="panel"><div class="panel-h"><h3>${I("mail")}${tx("pp.leads")}</h3><span class="muted small">${num(L.filter(l => !l.seen).length)} ${tx("pp.leadNew").toLowerCase()} · ${num(L.length)}</span></div>
-    ${L.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>${tx("common.name")}</th><th>${tx("pp.phone")}</th><th>${tx("pp.message")}</th><th>${tx("common.date")}</th><th></th></tr></thead><tbody>
+    ${L.length ? `<div class="tbl-wrap pp-leads"><table class="tbl"><thead><tr><th>${tx("common.name")}</th><th>${tx("pp.phone")}</th><th>${tx("pp.message")}</th><th>${tx("common.date")}</th><th></th></tr></thead><tbody>
     ${L.map(l => `<tr class="${l.seen ? "" : "pp-new"}"><td><b>${esc(l.name)}</b>${l.seen ? "" : ` ${pill("warn", tx("pp.leadNew"))}`}</td>
       <td><a href="tel:${esc(l.phone.replace(/[^0-9+]/g, ""))}">${esc(l.phone)}</a> · <a href="${esc(wa(l.phone))}" target="_blank" rel="noopener">WhatsApp</a></td>
       <td class="pp-msg">${esc(l.message || "—")}</td><td class="muted small">${esc(fmtDate(Date.parse(l.created_at)))}</td>
@@ -283,7 +286,7 @@ function preqView() {
     const list = tab === "pending" ? pending : R;
     body = list.length ? list.map(preqCard).join("") : empty("check", tx("preq.none"), "");
   }
-  return head + tabs + `<div class="stack" style="margin-top:14px">${body}</div>`;
+  return head + tabs + `<div class="stack" style="margin-top:14px">${body}${ppNotifyAdminPanel()}<div class="grid-2 pp-top">${ppNotifyPanel()}<div></div></div></div>`;
 }
 function preqCard(r) {
   const tone = { pending: "warn", approved: "ok", rejected: "bad" }[r.status];
@@ -304,6 +307,133 @@ function preqCard(r) {
   </div>`;
 }
 
+/* ---------- design: themes, colours, fonts, live preview ---------- */
+function ppPreviewData() {
+  const P = S.pp.profile || {}, d = S.pp.draft;
+  return {
+    slug: d.slug || P.slug, kind: P.kind, name: d.display_name, headline: d.headline, image_path: d.image_path, bio: d.bio, experience: d.experience, education: d.education,
+    subjects: (d.subjects || "").split(",").map(s => s.trim()).filter(Boolean), city: d.city, price_note: d.price_note,
+    groups: (d.groups || []).filter(g => g && g.name), branches: (d.branches || []).filter(b => b && b.name), team: (d.team || []).filter(m => m && m.name),
+    contacts: { ...d.contacts, instagram: ppHandle(d.contacts.instagram), telegram: ppHandle(d.contacts.telegram), tiktok: ppHandle(d.contacts.tiktok) },
+    accent: d.accent, theme: d.theme, font: d.font, mode: d.mode, verified: !!P.verified,
+  };
+}
+function ppPreviewHtml() { return window.EdxProfile ? EdxProfile.render(ppPreviewData(), { lang: ["az", "en", "tr"].includes(S.lang) ? S.lang : "en", preview: true }) : ""; }
+let ppPrevTimer;
+function ppPreviewSoon() {
+  clearTimeout(ppPrevTimer);
+  ppPrevTimer = setTimeout(() => { const f = document.getElementById("pp-prev"); if (f) f.srcdoc = ppPreviewHtml(); }, 450);
+}
+function ppThemeName(th) { return th[S.lang] || th.en; }
+function ppDesignPanel(P) {
+  const d = S.pp.draft, R = window.EdxProfile;
+  if (!R) return "";
+  const dev = S.pp.device || "desktop";
+  const fonts = Object.entries(R.FONTS);
+  return `<div class="panel pp-design">
+    <div class="panel-h"><h3>${I("sun")}${tx("pp.secDesign")}</h3><span class="muted small">${tx("pp.designHint")}</span></div>
+    <div class="pp-design-grid">
+      <div class="stack" style="gap:14px">
+        <fieldset class="fld"><legend>${tx("pp.theme")}</legend>
+          <div class="pp-themes">${R.THEMES.map(th => `<label class="pp-th ${d.theme === th.id ? "on" : ""}"><input type="radio" name="pp-theme" data-pp="theme" value="${th.id}" ${d.theme === th.id ? "checked" : ""}>
+            <span class="mk mk-${th.id}" style="--a:${esc(d.theme === th.id ? d.accent : th.accent)}" aria-hidden="true"><i class="h"></i><i class="c"></i><i class="l1"></i><i class="l2"></i><i class="b"></i><i class="k1"></i><i class="k2"></i></span>
+            <b>${esc(ppThemeName(th))}</b><small>${esc(th.d[S.lang] || th.d.en)}</small></label>`).join("")}</div>
+        </fieldset>
+        <fieldset class="fld"><legend>${tx("pp.accent")}</legend><div class="pp-sw">${PP_ACCENTS.map(c => `<label style="--c:${c}" title="${c}"><input type="radio" name="pp-acc" data-pp="accent" value="${c}" ${d.accent.toLowerCase() === c ? "checked" : ""}><i></i></label>`).join("")}
+          <label class="pp-sw-c" title="${tx("pp.customColor")}"><input type="color" data-pp="accent" value="${esc(d.accent)}" aria-label="${tx("pp.customColor")}"></label></div></fieldset>
+        <div class="row-2">
+          <label class="fld"><span>${tx("pp.font")}</span><select data-pp="font">${fonts.map(([k, f]) => `<option value="${k}" ${d.font === k ? "selected" : ""}>${esc(f[S.lang] || f.en)}</option>`).join("")}</select></label>
+          <label class="fld"><span>${tx("pp.mode")}</span><select data-pp="mode">${R.MODES.map(m => `<option value="${m}" ${d.mode === m ? "selected" : ""}>${tx("pp.mode_" + m)}</option>`).join("")}</select></label>
+        </div>
+        <p class="small muted">${tx("pp.designSaveNote")}</p>
+      </div>
+      <div class="pp-prev-wrap">
+        <div class="row gap-s wrap-row" style="justify-content:space-between;margin-bottom:8px">
+          <div class="tabs" role="tablist">${[["desktop", "pp.devDesktop"], ["phone", "pp.devPhone"]].map(([k, l]) => `<button type="button" role="tab" class="tab ${dev === k ? "on" : ""}" data-action="pp-device" data-k="${k}">${tx(l)}</button>`).join("")}</div>
+          <button type="button" class="btn ghost sm" data-action="pp-preview-open">${I("eye")}${tx("pp.previewOpen")}</button>
+        </div>
+        <div class="pp-prev ${dev}"><iframe id="pp-prev" title="${tx("pp.preview")}" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox" srcdoc="${esc(ppPreviewHtml())}"></iframe></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ---------- notifications (email + Telegram; WhatsApp later) ---------- */
+Object.assign(SupabaseBackend.prototype, {
+  async ppNotifyState() {
+    const uid = await this._uid();
+    const [row, st] = await Promise.all([this.sb.from("notify_settings").select("*").eq("owner_id", uid).maybeSingle(), this.sb.rpc("notify_status")]);
+    return { settings: this._chk(row), bot: (st.data && st.data.tg_bot) || "" };
+  },
+  async ppNotifySave(p) { return this._rpc("notify_settings_save", { p }); },
+  async ppTgLink() { return this._rpc("notify_tg_link", {}); },
+  async ppTgUnlink() { return this._rpc("notify_tg_unlink", {}); },
+  async ppNotifyLog() { return (await this._rpc("notify_admin_log", {})) || []; },
+  async ppNotifyAdmin(action) {
+    const { data, error } = await this.sb.functions.invoke("notify", { body: { action } });
+    if (error) throw new AppError("server", error.message);
+    return data;
+  },
+});
+async function ppLoadNotify() {
+  try { const r = await api.ppNotifyState(); S.pp.notify = r.settings || { email_on: true, email: "", tg_on: true }; S.pp.tgBot = r.bot; }
+  catch (e) { console.warn("notify", e); S.pp.notify = S.pp.notify || { email_on: true, email: "", tg_on: true }; }
+  if (S.pp.admin && S.route === "preq") { try { S.pp.nlog = await api.ppNotifyLog(); } catch (e) { S.pp.nlog = []; } }
+}
+function ppNotifyPanel() {
+  const n = S.pp.notify;
+  if (!n) return "";
+  const linked = !!n.tg_chat_id;
+  return `<div class="panel form pp-notify"><div class="panel-h"><h3>${I("bolt")}${tx("pn.title")}</h3><span class="muted small">${tx("pn.lead")}</span></div>
+    <div class="pp-ch">
+      <div class="pp-ch-row"><div><b>${tx("pn.email")}</b><small>${tx("pn.emailText", { e: esc(S.teacher.email || "") })}</small></div>
+        <label class="pp-switch"><input type="checkbox" id="pn-email-on" ${n.email_on !== false ? "checked" : ""}><span></span></label></div>
+      <label class="fld"><span>${tx("pn.emailOther")}</span><input id="pn-email" type="email" maxlength="120" value="${esc(n.email || "")}" placeholder="${esc(S.teacher.email || "")}"></label>
+      <div class="pp-ch-row"><div><b>Telegram</b><small>${linked ? tx("pn.tgLinked", { u: esc(n.tg_username ? "@" + n.tg_username : "✓") }) : S.pp.tgBot ? tx("pn.tgText") : tx("pn.tgSoon")}</small></div>
+        ${linked ? `<div class="row gap-s"><label class="pp-switch"><input type="checkbox" id="pn-tg-on" ${n.tg_on !== false ? "checked" : ""}><span></span></label><button type="button" class="btn ghost sm" data-action="pn-tg-unlink">${tx("pn.tgUnlink")}</button></div>`
+          : S.pp.tgBot ? `<button type="button" class="btn outline sm" data-action="pn-tg-link">${I("send")}${tx("pn.tgLink")}</button>` : pill("info", tx("pn.soon"))}</div>
+      ${S.pp.tgWaiting && !linked ? `<p class="small" style="color:var(--warn)">${tx("pn.tgWaiting")} <button type="button" class="btn ghost sm" data-action="pn-refresh">${I("refresh")}${tx("pn.check")}</button></p>` : ""}
+      <div class="pp-ch-row muted"><div><b>WhatsApp</b><small>${tx("pn.waText")}</small></div>${pill("info", tx("pn.soon"))}</div>
+    </div>
+    <p class="small muted">${tx("pn.what")}</p>
+    <div><button type="button" class="btn gold sm" data-action="pn-save">${I("check")}${tx("pn.save")}</button></div>
+  </div>`;
+}
+function ppNotifyAdminPanel() {
+  const r = S.pp.nadmin || {}, log = S.pp.nlog || [];
+  const st = (o) => !o ? "" : o.configured ? (o.ok === false ? pill("bad", tx("pn.adm_bad")) : pill("ok", tx("pn.adm_ok"))) : pill("warn", tx("pn.adm_missing"));
+  return `<div class="panel"><div class="panel-h"><h3>${I("bolt")}${tx("pn.admTitle")}</h3>
+      <div class="row gap-s wrap-row"><button class="btn outline sm" data-action="pn-setup">${I("refresh")}${tx("pn.admSetup")}</button><button class="btn ghost sm" data-action="pn-test">${I("send")}${tx("pn.admTest")}</button></div></div>
+    <p class="small muted">${tx("pn.admText")}</p>
+    ${r.telegram || r.email ? `<div class="row gap-s wrap-row" style="margin:8px 0"><span class="small"><b>Telegram</b> ${st(r.telegram)} ${r.telegram && r.telegram.bot ? "@" + esc(r.telegram.bot) : ""}</span>
+      <span class="small"><b>E-poçt</b> ${st(r.email)} ${r.email && r.email.from ? esc(r.email.from) : ""}</span></div>` : ""}
+    ${r.test ? `<p class="small">${tx("pn.admTestRes")}: Telegram — ${esc(r.test.telegram || "—")}; E-poçt — ${esc(r.test.email || "—")}</p>` : ""}
+    ${log.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>${tx("common.date")}</th><th>${tx("common.type")}</th><th>${tx("preq.owner")}</th><th>Telegram</th><th>E-poçt</th><th>${tx("pn.admNote")}</th></tr></thead><tbody>
+      ${log.map(x => `<tr><td class="small">${esc(fmtDate(Date.parse(x.created_at)))}</td><td class="small">${esc(x.kind)}</td><td class="small">${esc(x.email || "")}</td><td>${x.sent_tg ? "✓" : "—"}</td><td>${x.sent_email ? "✓" : "—"}</td><td class="small muted">${esc(x.error || (x.done ? "" : "…"))}</td></tr>`).join("")}</tbody></table></div>` : `<p class="small muted">${tx("pn.admNoLog")}</p>`}
+  </div>`;
+}
+document.addEventListener("click", async (ev) => {
+  const el = ev.target.closest("[data-action]");
+  if (!el || !/^pn-/.test(el.dataset.action)) return;
+  const a = el.dataset.action;
+  try {
+    if (a === "pn-save") {
+      busy(el, true);
+      await api.ppNotifySave({ email_on: $("#pn-email-on").checked, email: $("#pn-email").value.trim(), tg_on: $("#pn-tg-on") ? $("#pn-tg-on").checked : true, lang: S.lang });
+      toast(t("toast.saved")); await ppLoadNotify(); render(true);
+    } else if (a === "pn-tg-link") {
+      const w = window.open("", "_blank");
+      const r = await api.ppTgLink();
+      if (!r || !r.bot) { if (w) w.close(); toast(t("pn.tgSoon"), "warn"); return; }
+      const link = `https://t.me/${r.bot}?start=${r.token}`;
+      if (w) w.location.href = link; else location.href = link;
+      S.pp.tgWaiting = true; render(true);
+    } else if (a === "pn-refresh") { await ppLoadNotify(); if (S.pp.notify && S.pp.notify.tg_chat_id) { S.pp.tgWaiting = false; toast(t("pn.tgDone")); } render(true); }
+    else if (a === "pn-tg-unlink") { await api.ppTgUnlink(); await ppLoadNotify(); render(true); }
+    else if (a === "pn-setup" || a === "pn-test") { busy(el, true); S.pp.nadmin = await api.ppNotifyAdmin(a === "pn-setup" ? "setup" : "test"); await ppLoadNotify(); render(true); }
+  } catch (e) { console.error(e); toast(e && e.code === "bad_email" ? t("pn.badEmail") : ppErr(e), "warn"); busy(el, false); }
+});
+
 /* ---------- events ---------- */
 function ppSet(obj, path, value) {
   const p = path.split(".");
@@ -314,12 +444,17 @@ function ppSet(obj, path, value) {
 function ppVal(el) { return el.type === "checkbox" ? el.checked : el.value; }
 document.addEventListener("input", (ev) => {
   const el = ev.target;
-  if (el.dataset.pp && S.pp.draft && el.type !== "radio") ppSet(S.pp.draft, el.dataset.pp, ppVal(el));
+  if (el.dataset.pp && S.pp.draft && el.type !== "radio") { ppSet(S.pp.draft, el.dataset.pp, ppVal(el)); if (el.type !== "color") ppPreviewSoon(); }
   if (el.dataset.ppr && S.pp.req && el.type !== "radio") S.pp.req[el.dataset.ppr] = ppVal(el);
 });
 document.addEventListener("change", async (ev) => {
   const el = ev.target;
-  if (el.dataset.pp && S.pp.draft) { ppSet(S.pp.draft, el.dataset.pp, ppVal(el)); if (el.dataset.pp === "accent") render(true); return; }
+  if (el.dataset.pp && S.pp.draft) {
+    ppSet(S.pp.draft, el.dataset.pp, ppVal(el));
+    if (el.dataset.pp === "theme" && window.EdxProfile) { const th = EdxProfile.THEMES.find(x => x.id === el.value); if (th) { S.pp.draft.accent = th.accent; S.pp.draft.font = th.font; } }
+    if (["accent", "theme", "font", "mode"].includes(el.dataset.pp)) render(true); else ppPreviewSoon();
+    return;
+  }
   if (el.dataset.ppr && S.pp.req) { S.pp.req[el.dataset.ppr] = ppVal(el); if (el.dataset.ppr === "kind" || el.dataset.ppr === "country") render(true); return; }
   if (el.dataset.action === "pp-image" && el.files && el.files[0]) await ppImagePicked(el.files[0]);
 });
@@ -362,6 +497,8 @@ document.addEventListener("click", async (ev) => {
       case "pp-lead-seen": await api.ppLeadSeen(id, true); await ppLoad(); break;
       case "pp-lead-del": S.ui.confirm = null; await api.ppLeadDelete(id); await ppLoad(); break;
       case "pp-tab": S.pp.tab = el.dataset.k; render(true); break;
+      case "pp-device": S.pp.device = el.dataset.k; render(true); break;
+      case "pp-preview-open": { const w = window.open("", "_blank"); if (w) { w.document.open(); w.document.write(ppPreviewHtml()); w.document.close(); } break; }
       case "pp-refresh": S.pp.adminReqs = null; await ppLoad(); break;
       case "pq-approve": { busy(el, true); const note = ($("#pq-note-" + id) || {}).value || ""; await api.ppAdminDecide(id, true, note); toast(t("preq.approved")); await ppLoad(); break; }
       case "pq-reject": { S.ui.confirm = null; const note = ($("#pq-note-" + id) || {}).value || ""; await api.ppAdminDecide(id, false, note); toast(t("preq.rejected")); await ppLoad(); break; }
@@ -403,6 +540,7 @@ document.addEventListener("submit", async (ev) => {
         subjects: d.subjects.split(",").map(s => s.trim()).filter(Boolean), price_note: d.price_note,
         groups: d.groups, branches: d.branches, team: d.team, contacts: c, accent: d.accent, published: d.published, consent: d.consent,
       });
+      await api.ppSaveLook({ theme: d.theme, font: d.font, mode: d.mode });
       toast(t("toast.saved")); await ppLoad(true);
     }
   } catch (e) { console.error(e); const m = ppErr(e); setErr(errId, m); toast(m, "warn"); busy(btn, false); }
@@ -410,6 +548,8 @@ document.addEventListener("submit", async (ev) => {
 
 /* ---------- texts (az, en, tr; other languages fall back to English) ---------- */
 Object.assign(I18N.az, {
+  "pn.title": "Bildirişlər", "pn.lead": "Yeni qeydiyyat, istəyin nəticəsi, ödəniş və müddət xatırlatmaları", "pn.email": "E-poçt", "pn.emailText": "Bildirişlər {e} ünvanına gəlir.", "pn.emailOther": "Başqa e-poçta göndər (istəyə görə)", "pn.tgText": "Bildirişləri Telegram-da dərhal alın.", "pn.tgSoon": "Telegram bildirişləri tezliklə qoşulacaq.", "pn.tgLinked": "Bağlıdır: {u}", "pn.tgLink": "Telegram-ı qoş", "pn.tgUnlink": "Ayır", "pn.tgWaiting": "Telegram-da «Start» düyməsini basın, sonra bu düyməni basın:", "pn.check": "Yoxla", "pn.tgDone": "Telegram bağlandı", "pn.waText": "WhatsApp bildirişləri Meta biznes hesabı təsdiqindən sonra əlavə olunacaq.", "pn.soon": "Tezliklə", "pn.what": "Şagird məlumatları bildirişdə yalnız sizə göstərilir: ad, telefon və mesaj.", "pn.save": "Bildiriş ayarlarını saxla", "pn.badEmail": "E-poçt ünvanını düzgün yazın.", "pn.admTitle": "Bildiriş qurulumu (admin)", "pn.admSetup": "Qurulumu yoxla", "pn.admTest": "Mənə test göndər", "pn.admText": "Telegram botunun tokeni və e-poçt xidmətinin açarı Supabase → Edge Functions → Secrets bölməsinə yazılır. Sonra «Qurulumu yoxla» düyməsini basın.", "pn.adm_ok": "işləyir", "pn.adm_bad": "xəta", "pn.adm_missing": "qoşulmayıb", "pn.admTestRes": "Test nəticəsi", "pn.admNote": "Qeyd", "pn.admNoLog": "Hələ bildiriş göndərilməyib.",
+  "pp.secDesign": "Dizayn", "pp.designHint": "Tema seçin, sonra rəngi və şrifti dəyişin. Dəyişikliklər sağda dərhal görünür.", "pp.theme": "Tema", "pp.customColor": "İstənilən rəng", "pp.font": "Şrift", "pp.mode": "Gecə rejimi", "pp.mode_auto": "Avtomatik (cihaza görə)", "pp.mode_light": "Həmişə açıq", "pp.mode_dark": "Həmişə tünd", "pp.designSaveNote": "Tema seçəndə onun tövsiyə olunan rəngi və şrifti tətbiq olunur. Hər şeyi sonra dəyişə bilərsiniz. Saxlamaq üçün aşağıdakı «Profili yadda saxla» düyməsini basın.", "pp.devDesktop": "Kompüter", "pp.devPhone": "Telefon", "pp.previewOpen": "Tam ekranda bax", "pp.preview": "Ön baxış", "pp.secVisible": "Görünmə və razılıq", "pp.e_bad_theme": "Tema düzgün deyil.",
   "tnav.pubprofile": "Açıq profil", "tnav.preq": "Profil istəkləri",
   "pp.title": "Açıq profil", "pp.lead": "Hər kəsə açıq vizit kartınız: haqqınızda, qruplarınız, qiymətləriniz və qeydiyyat forması.",
   "pp.cloudOnly": "Açıq profil yalnız bulud rejimində işləyir.", "pp.cloudOnlyText": "Demo rejimində məlumat yalnız bu brauzerdə saxlanılır, ona görə hər kəsə açıq səhifə yaratmaq olmur.",
@@ -461,6 +601,8 @@ Object.assign(I18N.az, {
   "preq.suspend": "Dayandır", "preq.restore": "Bərpa et", "preq.until": "Bitmə tarixi", "preq.price": "Qiymət", "preq.owner": "Sahib", "preq.newToast": "{n} profil istəyi yoxlama gözləyir",
 });
 Object.assign(I18N.en, {
+  "pn.title": "Notifications", "pn.lead": "New sign-ups, request decisions, payment and renewal reminders", "pn.email": "Email", "pn.emailText": "Notifications go to {e}.", "pn.emailOther": "Send to another email (optional)", "pn.tgText": "Get notifications instantly in Telegram.", "pn.tgSoon": "Telegram notifications are coming soon.", "pn.tgLinked": "Connected: {u}", "pn.tgLink": "Connect Telegram", "pn.tgUnlink": "Disconnect", "pn.tgWaiting": "Press “Start” in Telegram, then press this button:", "pn.check": "Check", "pn.tgDone": "Telegram connected", "pn.waText": "WhatsApp notifications will be added after Meta business verification.", "pn.soon": "Soon", "pn.what": "Student details in notifications are shown only to you: name, phone and message.", "pn.save": "Save notification settings", "pn.badEmail": "Enter a valid email address.", "pn.admTitle": "Notification setup (admin)", "pn.admSetup": "Check setup", "pn.admTest": "Send me a test", "pn.admText": "The Telegram bot token and the email service key go into Supabase → Edge Functions → Secrets. Then press “Check setup”.", "pn.adm_ok": "working", "pn.adm_bad": "error", "pn.adm_missing": "not connected", "pn.admTestRes": "Test result", "pn.admNote": "Note", "pn.admNoLog": "No notifications sent yet.",
+  "pp.secDesign": "Design", "pp.designHint": "Pick a theme, then change the colour and font. Changes show on the right at once.", "pp.theme": "Theme", "pp.customColor": "Any colour", "pp.font": "Font", "pp.mode": "Dark mode", "pp.mode_auto": "Automatic (follows device)", "pp.mode_light": "Always light", "pp.mode_dark": "Always dark", "pp.designSaveNote": "Picking a theme applies its suggested colour and font; you can change everything afterwards. Press “Save profile” below to keep it.", "pp.devDesktop": "Desktop", "pp.devPhone": "Phone", "pp.previewOpen": "Full-screen preview", "pp.preview": "Preview", "pp.secVisible": "Visibility and consent", "pp.e_bad_theme": "Invalid theme.",
   "tnav.pubprofile": "Public profile", "tnav.preq": "Profile requests",
   "pp.title": "Public profile", "pp.lead": "Your public business card: about you, your groups, your prices and a sign-up form.",
   "pp.cloudOnly": "Public profiles work only in cloud mode.", "pp.cloudOnlyText": "In demo mode data stays in this browser, so a public page cannot be created.",
@@ -511,6 +653,8 @@ Object.assign(I18N.en, {
   "preq.suspend": "Suspend", "preq.restore": "Restore", "preq.until": "Valid until", "preq.price": "Price", "preq.owner": "Owner", "preq.newToast": "{n} profile request(s) waiting for review",
 });
 Object.assign(I18N.tr, {
+  "pn.title": "Bildirimler", "pn.lead": "Yeni kayıtlar, talep sonuçları, ödeme ve süre hatırlatmaları", "pn.email": "E-posta", "pn.emailText": "Bildirimler {e} adresine gelir.", "pn.emailOther": "Başka e-postaya gönder (isteğe bağlı)", "pn.tgText": "Bildirimleri Telegram'da anında alın.", "pn.tgSoon": "Telegram bildirimleri yakında.", "pn.tgLinked": "Bağlı: {u}", "pn.tgLink": "Telegram'ı bağla", "pn.tgUnlink": "Ayır", "pn.tgWaiting": "Telegram'da «Start» düğmesine basın, sonra bu düğmeye basın:", "pn.check": "Kontrol et", "pn.tgDone": "Telegram bağlandı", "pn.waText": "WhatsApp bildirimleri Meta işletme doğrulamasından sonra eklenecek.", "pn.soon": "Yakında", "pn.what": "Bildirimlerdeki öğrenci bilgileri yalnızca size gösterilir: ad, telefon ve mesaj.", "pn.save": "Bildirim ayarlarını kaydet", "pn.badEmail": "Geçerli bir e-posta yazın.", "pn.admTitle": "Bildirim kurulumu (yönetici)", "pn.admSetup": "Kurulumu kontrol et", "pn.admTest": "Bana test gönder", "pn.admText": "Telegram bot anahtarı ve e-posta servis anahtarı Supabase → Edge Functions → Secrets bölümüne yazılır. Sonra «Kurulumu kontrol et» düğmesine basın.", "pn.adm_ok": "çalışıyor", "pn.adm_bad": "hata", "pn.adm_missing": "bağlı değil", "pn.admTestRes": "Test sonucu", "pn.admNote": "Not", "pn.admNoLog": "Henüz bildirim gönderilmedi.",
+  "pp.secDesign": "Tasarım", "pp.designHint": "Bir tema seçin, sonra renk ve yazı tipini değiştirin. Değişiklikler sağda anında görünür.", "pp.theme": "Tema", "pp.customColor": "Özel renk", "pp.font": "Yazı tipi", "pp.mode": "Gece modu", "pp.mode_auto": "Otomatik (cihaza göre)", "pp.mode_light": "Her zaman açık", "pp.mode_dark": "Her zaman koyu", "pp.designSaveNote": "Tema seçince önerilen renk ve yazı tipi uygulanır; sonra her şeyi değiştirebilirsiniz. Kaydetmek için aşağıdaki «Profili kaydet» düğmesine basın.", "pp.devDesktop": "Bilgisayar", "pp.devPhone": "Telefon", "pp.previewOpen": "Tam ekran önizleme", "pp.preview": "Önizleme", "pp.secVisible": "Görünürlük ve onay", "pp.e_bad_theme": "Geçersiz tema.",
   "tnav.pubprofile": "Açık profil", "tnav.preq": "Profil talepleri",
   "pp.title": "Açık profil", "pp.lead": "Herkese açık kartvizitiniz: hakkınızda, gruplarınız, ücretleriniz ve kayıt formu.",
   "pp.cloudOnly": "Açık profil yalnızca bulut modunda çalışır.", "pp.cloudOnlyText": "Demo modunda veriler yalnızca bu tarayıcıda tutulur, bu yüzden herkese açık sayfa oluşturulamaz.",
